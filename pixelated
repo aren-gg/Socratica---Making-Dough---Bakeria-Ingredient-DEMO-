@@ -12,22 +12,15 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box;-we
 body{margin:0;min-height:100%;background:linear-gradient(var(--bg),var(--bg2));color:var(--ink);font:400 11px/1.8 "Press Start 2P","Courier New",monospace;text-align:center;overflow-x:hidden}
 .px{image-rendering:pixelated;image-rendering:crisp-edges;display:block;margin:0 auto}
 .wrap{max-width:560px;margin:auto;padding:14px 14px 40px}
-/* logo badge (top-left) */
-.brand{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));left:14px;width:88px;height:88px;background:#fff6e3;border:5px solid var(--line);box-shadow:0 0 0 5px var(--acc),8px 8px 0 5px var(--line);display:flex;align-items:center;justify-content:center;z-index:5;animation:bob 1.2s steps(2) infinite}
-.brand:hover{animation-play-state:paused;transform:scale(1.08) rotate(-4deg)}
-.brand img{width:84%;height:84%;object-fit:contain}
-@keyframes bob{50%{transform:translateY(-4px)}}
-h1{margin:6px 0 0;font-size:16px;line-height:1.7;color:var(--acc);text-shadow:2px 2px 0 var(--line);font-weight:400;letter-spacing:1px;padding:0 100px}
-@media(max-width:420px){.brand{width:64px;height:64px;left:12px}h1{padding:0 76px;font-size:13px}}
+h1{margin:6px 0 0;font-size:16px;line-height:1.7;color:var(--acc);text-shadow:2px 2px 0 var(--line);font-weight:400;letter-spacing:1px}
 .hero{position:relative;margin:14px auto 8px;width:168px}
 .sale{position:absolute;top:0;right:-74px;background:var(--red);color:#fff;border:4px solid var(--line);padding:4px 6px;font-size:8px;line-height:1.4;transform:rotate(8deg);box-shadow:4px 4px 0 var(--line);animation:wob 2s steps(2) infinite}
 @keyframes wob{50%{transform:rotate(4deg)}}
 .card{background:var(--card);border:4px solid var(--line);padding:12px;margin:12px 0;box-shadow:5px 5px 0 var(--line)}
 .stage{display:flex;justify-content:center;align-items:flex-end;gap:10px;min-height:290px}
-.cup{position:relative;width:190px;height:250px;border:6px solid var(--line);border-top:none;background:rgba(255,255,255,.35);overflow:hidden;display:flex;flex-direction:column-reverse;margin:0 auto;box-shadow:6px 6px 0 var(--line);transition:transform .2s steps(3)}
+.cup{position:relative;width:190px;height:250px;border:6px solid var(--line);border-top:none;background:rgba(255,255,255,.35);overflow:hidden;display:flex;flex-direction:column-reverse;transition:transform .2s steps(3)}
 .cup.over{transform:scale(1.05);background:rgba(255,255,255,.7)}
-.rim{width:210px;height:16px;border:5px solid var(--line);background:var(--card);margin:0 auto -4px;position:relative;z-index:2;box-shadow:4px 4px 0 var(--line)}
-.stage>div{position:relative;padding-bottom:14px}.stage>div::after{content:"";position:absolute;left:50%;bottom:0;width:200px;height:8px;transform:translateX(-50%);background:rgba(0,0,0,.25)}
+.rim{width:210px;height:16px;border:5px solid var(--line);background:var(--card);margin:0 auto -4px;position:relative;z-index:2}
 .layer{height:20%;flex:none;display:flex;align-items:center;justify-content:center;gap:6px;border-top:4px solid var(--line);animation:drop .5s steps(6);cursor:pointer;position:relative;color:#4a2c1a}
 .layer b{font-size:7px;line-height:1.3;background:#fffc;padding:2px 4px;font-weight:400;max-width:90px}
 .layer.ok{box-shadow:inset 0 0 0 4px var(--grn)}.layer.no{box-shadow:inset 0 0 0 4px var(--red);filter:saturate(.6)}
@@ -54,10 +47,7 @@ input{font:inherit;font-size:10px;width:100%;padding:10px;margin:5px 0;border:4p
 dialog{border:4px solid var(--line);background:var(--card);color:var(--ink);font:inherit;max-width:420px;width:92%;box-shadow:6px 6px 0 var(--line)}
 dialog h2{font-size:12px;line-height:1.6;font-weight:400}
 .stats{font-size:8px;opacity:.8}
-</style></head><body>
-<!-- grandmalogo.png must sit in the same folder as this file -->
-<div class="brand" title="Grandma's Bakeria"><img src="grandmalogo.png" alt="Grandma's Bakeria logo"></div>
-<div class="wrap">
+</style></head><body><div class="wrap">
 <h1>GRANDMA'S<br>FALL PARFAIT</h1>
 <div class="hero"><img id="heroimg" class="px" alt="Grandma's Fall Parfait"><div class="sale">LIMITED WEEKLY SALE!</div></div>
 <div class="card"><div style="font-size:10px">Grandma's secret weekly recipe has <b id="n">5</b> ingredients.<br>Grab them from the basket and drop them in the cup!</div><div class="stats" id="st"></div></div>
