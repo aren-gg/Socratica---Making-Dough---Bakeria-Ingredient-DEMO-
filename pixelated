@@ -1,126 +1,722 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Grandma's Fall Parfait · Guess the Recipe</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
 <style>
-:root{--bg:#ffe8c2;--bg2:#ffd08a;--card:#fff6e3;--ink:#4a2c1a;--acc:#e0642b;--red:#d7263d;--grn:#4f9a3c;--line:#4a2c1a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#3a2214;--bg2:#2a170d;--card:#5a3720;--ink:#ffe8c2;--line:#1b0e06}}
-:root[data-theme="dark"]{--bg:#3a2214;--bg2:#2a170d;--card:#5a3720;--ink:#ffe8c2;--line:#1b0e06}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;min-height:100%;background:linear-gradient(var(--bg),var(--bg2));color:var(--ink);font:400 11px/1.8 "Press Start 2P","Courier New",monospace;text-align:center;overflow-x:hidden}
-.px{image-rendering:pixelated;image-rendering:crisp-edges;display:block;margin:0 auto}
-.wrap{max-width:560px;margin:auto;padding:14px 14px 40px}
-h1{margin:6px 0 0;font-size:16px;line-height:1.7;color:var(--acc);text-shadow:2px 2px 0 var(--line);font-weight:400;letter-spacing:1px}
-.hero{position:relative;margin:14px auto 8px;width:168px}
-.sale{position:absolute;top:0;right:-74px;background:var(--red);color:#fff;border:4px solid var(--line);padding:4px 6px;font-size:8px;line-height:1.4;transform:rotate(8deg);box-shadow:4px 4px 0 var(--line);animation:wob 2s steps(2) infinite}
-@keyframes wob{50%{transform:rotate(4deg)}}
-.card{background:var(--card);border:4px solid var(--line);padding:12px;margin:12px 0;box-shadow:5px 5px 0 var(--line)}
-.stage{display:flex;justify-content:center;align-items:flex-end;gap:10px;min-height:290px}
-.cup{position:relative;width:190px;height:250px;border:6px solid var(--line);border-top:none;background:rgba(255,255,255,.35);overflow:hidden;display:flex;flex-direction:column-reverse;transition:transform .2s steps(3)}
-.cup.over{transform:scale(1.05);background:rgba(255,255,255,.7)}
-.rim{width:210px;height:16px;border:5px solid var(--line);background:var(--card);margin:0 auto -4px;position:relative;z-index:2}
-.layer{height:20%;flex:none;display:flex;align-items:center;justify-content:center;gap:6px;border-top:4px solid var(--line);animation:drop .5s steps(6);cursor:pointer;position:relative;color:#4a2c1a}
-.layer b{font-size:7px;line-height:1.3;background:#fffc;padding:2px 4px;font-weight:400;max-width:90px}
-.layer.ok{box-shadow:inset 0 0 0 4px var(--grn)}.layer.no{box-shadow:inset 0 0 0 4px var(--red);filter:saturate(.6)}
-@keyframes drop{0%{transform:translateY(-260px);opacity:0}100%{transform:none;opacity:1}}
-.shake{animation:shake .4s steps(4)}@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-/* basket */
-.basket{position:relative;margin:26px 0 8px;filter:drop-shadow(5px 5px 0 var(--line))}
-#handle{display:block;width:72%;height:auto;margin:0 auto -4px;image-rendering:pixelated;image-rendering:crisp-edges}
-.items{background:conic-gradient(#ffd6d6 25%,#fff 0 50%,#ffd6d6 0 75%,#fff 0) 0 0/16px 16px;border:6px solid var(--line);border-bottom:0;padding:12px 6px 6px}
-.bank{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.weave{height:58px;border:6px solid var(--line);background:conic-gradient(#c78b45 25%,#9a6a30 0 50%,#c78b45 0 75%,#9a6a30 0) 0 0/16px 16px}
-.ing{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;padding:4px 0 2px;transition:transform .1s steps(2);color:#4a2c1a}
-.ing:hover{transform:translateY(-4px)}.ing:active{cursor:grabbing}
-.ing span{display:inline-block;margin-top:4px;font-size:7px;line-height:1.35;background:#fff;border:2px solid var(--line);padding:2px 3px}
-.ghost{position:fixed;z-index:99;pointer-events:none;transform:translate(-50%,-50%);filter:drop-shadow(4px 4px 0 #0005)}
-button.big{font:inherit;font-size:11px;color:#fff;background:var(--acc);border:4px solid var(--line);padding:12px 14px;margin:8px 4px 0;box-shadow:4px 4px 0 var(--line);cursor:pointer}
-button.big:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--line)}button.alt{background:var(--card);color:var(--ink)}button:disabled{opacity:.45}
-#msg{min-height:5.4em;font-size:10px;line-height:1.8;padding:8px 0 0}.chips{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
-input{font:inherit;font-size:10px;width:100%;padding:10px;margin:5px 0;border:4px solid var(--line);background:#fff;color:#4a2c1a}
-.coupon{border:4px dashed var(--red);padding:10px;margin-top:10px;background:#fff;color:#4a2c1a}
-.coupon big{display:block;font-size:14px;color:var(--red);letter-spacing:1px;margin:6px 0}
-.leaf{position:fixed;top:-50px;z-index:98;pointer-events:none;animation:fall linear forwards}
-@keyframes fall{to{transform:translateY(110vh)}}
-dialog{border:4px solid var(--line);background:var(--card);color:var(--ink);font:inherit;max-width:420px;width:92%;box-shadow:6px 6px 0 var(--line)}
-dialog h2{font-size:12px;line-height:1.6;font-weight:400}
-.stats{font-size:8px;opacity:.8}
-</style></head><body><div class="wrap">
+        /* --- Theme Variables --- */
+        :root {
+            --bg: #ffe8c2;
+            --bg2: #ffd08a;
+            --card: #fff6e3;
+            --ink: #4a2c1a;
+            --acc: #e0642b;
+            --red: #d7263d;
+            --grn: #4f9a3c;
+            --line: #4a2c1a;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* --- Dark Mode Support --- */
+        @media(prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #3a2214;
+                --bg2: #2a170d;
+                --card: #5a3720;
+                --ink: #ffe8c2;
+                --line: #1b0e06;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #3a2214;
+            --bg2: #2a170d;
+            --card: #5a3720;
+            --ink: #ffe8c2;
+            --line: #1b0e06;
+        }
+
+        /* --- Global Styles --- */
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: linear-gradient(var(--bg), var(--bg2));
+            color: var(--ink);
+            font: 400 11px/1.8 "Press Start 2P", "Courier New", monospace;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .px {
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .wrap {
+            max-width: 560px;
+            margin: auto;
+            padding: 14px 14px 40px;
+        }
+
+        /* --- Header & Branding --- */
+        h1 {
+            margin: 6px 0 0;
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--acc);
+            text-shadow: 2px 2px 0 var(--line);
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .hero {
+            position: relative;
+            margin: 14px auto 8px;
+            width: 168px;
+        }
+
+        .sale {
+            position: absolute;
+            top: 0;
+            right: -74px;
+            background: var(--red);
+            color: #fff;
+            border: 4px solid var(--line);
+            padding: 4px 6px;
+            font-size: 8px;
+            line-height: 1.4;
+            transform: rotate(8deg);
+            box-shadow: 4px 4px 0 var(--line);
+            animation: wob 2s steps(2) infinite;
+        }
+
+        @keyframes wob {
+            50% { transform: rotate(4deg); }
+        }
+
+        /* --- Layout Cards --- */
+        .card {
+            background: var(--card);
+            border: 4px solid var(--line);
+            padding: 12px;
+            margin: 12px 0;
+            box-shadow: 5px 5px 0 var(--line);
+        }
+
+        /* --- Game Play Area (Cup) --- */
+        .stage {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 10px;
+            min-height: 290px;
+        }
+
+        .cup {
+            position: relative;
+            width: 190px;
+            height: 250px;
+            border: 6px solid var(--line);
+            border-top: none;
+            background: rgba(255, 255, 255, .35);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column-reverse;
+            transition: transform .2s steps(3);
+        }
+
+        .cup.over {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, .7);
+        }
+
+        .rim {
+            width: 210px;
+            height: 16px;
+            border: 5px solid var(--line);
+            background: var(--card);
+            margin: 0 auto -4px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .layer {
+            height: 20%;
+            flex: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border-top: 4px solid var(--line);
+            animation: drop .5s steps(6);
+            cursor: pointer;
+            position: relative;
+            color: #4a2c1a;
+        }
+
+        .layer b {
+            font-size: 7px;
+            line-height: 1.3;
+            background: #fffc;
+            padding: 2px 4px;
+            font-weight: 400;
+            max-width: 90px;
+        }
+
+        .layer.ok { box-shadow: inset 0 0 0 4px var(--grn); }
+        .layer.no { box-shadow: inset 0 0 0 4px var(--red); filter: saturate(.6); }
+
+        @keyframes drop {
+            0% { transform: translateY(-260px); opacity: 0; }
+            100% { transform: none; opacity: 1; }
+        }
+
+        .shake { animation: shake .4s steps(4); }
+        @keyframes shake {
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* --- Basket & Inventory --- */
+        .basket {
+            position: relative;
+            margin: 26px 0 8px;
+            filter: drop-shadow(5px 5px 0 var(--line));
+        }
+
+        #handle {
+            display: block;
+            width: 72%;
+            height: auto;
+            margin: 0 auto -4px;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        .items {
+            background: conic-gradient(#ffd6d6 25%, #fff 0 50%, #ffd6d6 0 75%, #fff 0) 0 0 / 16px 16px;
+            border: 6px solid var(--line);
+            border-bottom: 0;
+            padding: 12px 6px 6px;
+        }
+
+        .bank {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .weave {
+            height: 58px;
+            border: 6px solid var(--line);
+            background: conic-gradient(#c78b45 25%, #9a6a30 0 50%, #c78b45 0 75%, #9a6a30 0) 0 0 / 16px 16px;
+        }
+
+        .ing {
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            cursor: grab;
+            padding: 4px 0 2px;
+            transition: transform .1s steps(2);
+            color: #4a2c1a;
+        }
+
+        .ing:hover { transform: translateY(-4px); }
+        .ing:active { cursor: grabbing; }
+
+        .ing span {
+            display: inline-block;
+            margin-top: 4px;
+            font-size: 7px;
+            line-height: 1.35;
+            background: #fff;
+            border: 2px solid var(--line);
+            padding: 2px 3px;
+        }
+
+        /* --- UI Elements & Feedback --- */
+        .ghost {
+            position: fixed;
+            z-index: 99;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            filter: drop-shadow(4px 4px 0 #0005);
+        }
+
+        button.big {
+            font: inherit;
+            font-size: 11px;
+            color: #fff;
+            background: var(--acc);
+            border: 4px solid var(--line);
+            padding: 12px 14px;
+            margin: 8px 4px 0;
+            box-shadow: 4px 4px 0 var(--line);
+            cursor: pointer;
+        }
+
+        button.big:active {
+            transform: translate(3px, 3px);
+            box-shadow: 1px 1px 0 var(--line);
+        }
+
+        button.alt { background: var(--card); color: var(--ink); }
+        button:disabled { opacity: .45; }
+
+        #msg {
+            min-height: 5.4em;
+            font-size: 10px;
+            line-height: 1.8;
+            padding: 8px 0 0;
+        }
+
+        .stats { font-size: 8px; opacity: .8; }
+
+        /* --- Dialog & Inputs --- */
+        input {
+            font: inherit;
+            font-size: 10px;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 4px solid var(--line);
+            background: #fff;
+            color: #4a2c1a;
+        }
+
+        .coupon {
+            border: 4px dashed var(--red);
+            padding: 10px;
+            margin-top: 10px;
+            background: #fff;
+            color: #4a2c1a;
+        }
+
+        .coupon big {
+            display: block;
+            font-size: 14px;
+            color: var(--red);
+            letter-spacing: 1px;
+            margin: 6px 0;
+        }
+
+        .leaf {
+            position: fixed;
+            top: -50px;
+            z-index: 98;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+
+        dialog {
+            border: 4px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font: inherit;
+            max-width: 420px;
+            width: 92%;
+            box-shadow: 6px 6px 0 var(--line);
+        }
+
+        dialog h2 {
+            font-size: 12px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
 <h1>GRANDMA'S<br>FALL PARFAIT</h1>
-<div class="hero"><img id="heroimg" class="px" alt="Grandma's Fall Parfait"><div class="sale">LIMITED WEEKLY SALE!</div></div>
-<div class="card"><div style="font-size:10px">Grandma's secret weekly recipe has <b id="n">5</b> ingredients.<br>Grab them from the basket and drop them in the cup!</div><div class="stats" id="st"></div></div>
-<div class="card"><div class="stage" id="stage"><div><div class="rim"></div><div class="cup" id="cup"></div></div></div>
-<div id="msg">Drag ingredients from the basket into the cup (or just tap them)</div>
-<button class="big" id="chk">TASTE IT!</button><button class="big alt" id="clr">EMPTY CUP</button></div>
-<div class="basket"><canvas id="handle" width="40" height="12"></canvas><div class="items"><div class="bank" id="bank"></div></div><div class="weave"></div></div>
+
+        <div class="hero">
+            <img id="heroimg" class="px" alt="Grandma's Fall Parfait">
+            <div class="sale">LIMITED WEEKLY SALE!</div>
 </div>
-<dialog id="dlg"><div id="win"></div></dialog>
+
+        <div class="card">
+            <div style="font-size:10px">
+                Grandma's secret weekly recipe has <b id="n">5</b> ingredients.<br>
+                Grab them from the basket and drop them in the cup!
+            </div>
+            <div class="stats" id="st"></div>
+        </div>
+
+        <div class="card">
+            <div class="stage" id="stage">
+                <div>
+                    <div class="rim"></div>
+                    <div class="cup" id="cup"></div>
+                </div>
+            </div>
+            <div id="msg">Drag ingredients from the basket into the cup (or just tap them)</div>
+            <button class="big" id="chk">TASTE IT!</button>
+            <button class="big alt" id="clr">EMPTY CUP</button>
+        </div>
+
+        <div class="basket">
+            <canvas id="handle" width="40" height="12"></canvas>
+            <div class="items">
+                <div class="bank" id="bank"></div>
+            </div>
+            <div class="weave"></div>
+        </div>
+    </div>
+
+    <dialog id="dlg">
+        <div id="win"></div>
+    </dialog>
 <script>
-/* ---------- pixel art ---------- */
-const PAL={k:'#4a2c1a',w:'#ffffff',c:'#fff3cf',y:'#f6c445',o:'#e0642b',O:'#f19a2b',b:'#a86a3a',B:'#7a4a30',t:'#d9a15b',r:'#d7263d',p:'#f0647a',g:'#4f9a3c',n:'#f7e27a',a:'#d58a2f',l:'#ffd24d',h:'#e8884a',d:'#c9a227'};
-const SPR={
-yogurt:["..kkkkkk..",".kwwwwwwk.","kkkkkkkkkk","kcccccccck","kccccrccck","kcccccccck",".kcccccck.","..kcccck..","..kkkkkk.."],
-granola:["...kk.kk..","..ktbtbtk.",".ktbtttbtk",".kbtttbttk","kttbtbtttk","ktbtttbttk","kkttbtbtkk",".kkkkkkkk."],
-apple:["....kbgg..","..kkkbkkk.",".khhhhhhhk","khhohhhhhk","khhhhhohhk","khohhhhhhk",".khhhhhhk.","..kkhhkk..","....kk...."],
-pumpkin:["....kg....",".kkkkkkkk.","kOOkOOkOOk","kOkOOOOkOk","kOkOOOOkOk","kOOkOOkOOk",".kOOOOOOk.","..kkkkkk.."],
-honey:["..kkkkkk..","..kbbbbk..",".kkkkkkkk.","kyyyyyyyyk","kyywwyyyyk","kyyyyyyyyk","kyyyyyyyyk",".kyyyyyyk.","..kkkkkk.."],
-cream:["....kk....","...kwwk...","..kwwwwk..","...kwwk...",".kkwwwwkk.","kwwwwwwwwk",".kwwwwwwk.","kwwwwwwwwk","kkkkkkkkkk"],
-pecan:["..kkkk....",".kbbbbk...","kbBbbbbk..","kbbBbbbbk.",".kbbBbbbk.","..kbbbbk..","...kkkk..."],
-caramel:["...kaak...","..kaaaak..",".kaaaaaak.","kaaaaaaaak","kkkkkkkkkk","kbbbbbbbbk",".kbbbbbbk.","..kkkkkk.."],
-choc:["kkkkkkkkkk","kBBkBBkBBk","kBBkBBkBBk","kkkkkkkkkk","kBBkBBkBBk","kBBkBBkBBk","kkkkkkkkkk"],
-banana:[".......kk.","......knk.",".....knnk.","....knnnk.","...knnnnk.",".kknnnnk..","knnnnnkk..",".kkkkk...."],
-berry:["...gggg...","..kkggkk..",".kppppppk.","kpprpppppk","kppppprppk",".kpprpppk.","..kppppk..","...kppk...","....kk...."],
-cheese:["......kkk.","...kkkllk.",".kkllllllk","klllldllk.","kllllllllk","kllldlllld","kkkkkkkkkk"],
-parfait:["......gg......",".....krrk.....","....kkwwkk....","...kwwwwwwk...","..kwwwwwwwwk..",".kwwwwwwwwwwk.",".kkkkkkkkkkkk.",".kcccccccccck.",".koooooooooook.",".kttttttttttk.",".kcccccccccck.",".koooooooooook.","..kccccccccck.","...kcccccck...",".....kwwk.....",".....kwwk.....","...kkkkkkkk..."]
+        /* --- Pixel Art Asset Definitions --- */
+        const PAL = {
+            k: '#4a2c1a', w: '#ffffff', c: '#fff3cf', y: '#f6c445', o: '#e0642b',
+            O: '#f19a2b', b: '#a86a3a', B: '#7a4a30', t: '#d9a15b', r: '#d7263d',
+            p: '#f0647a', g: '#4f9a3c', n: '#f7e27a', a: '#d58a2f', l: '#ffd24d',
+            h: '#e8884a', d: '#c9a227'
 };
-const cache={};
-function spr(k){if(cache[k])return cache[k];const rows=SPR[k],big=k=='parfait',W0=Math.max(...rows.map(r=>r.length)),W=big?W0:Math.max(10,W0),H=big?rows.length:Math.max(10,rows.length),
- c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d'),top=H-rows.length,left=Math.floor((W-W0)/2);
- rows.forEach((r,j)=>[...r.padEnd(W0,'.')].forEach((ch,i)=>{if(PAL[ch]){x.fillStyle=PAL[ch];x.fillRect(i+left,j+top,1,1)}}));
- return cache[k]={u:c.toDataURL(),w:W,h:H}}
-function imgTag(k,s){const o=spr(k);return `<img class="px" alt="" draggable="false" src="${o.u}" style="width:${o.w*s}px;height:${o.h*s}px">`}
-(function(){const o=spr('parfait'),h=document.getElementById('heroimg');h.src=o.u;h.style.width=o.w*12+'px';h.style.height=o.h*12+'px'})();
-/* pixel basket handle */
-(function(){const c=document.getElementById('handle'),x=c.getContext('2d'),inn=(px,py,rx,ry)=>((px+.5-20)/rx)**2+((py+.5-12)/ry)**2<=1;
- for(let py=0;py<12;py++)for(let px=0;px<40;px++){if(!inn(px,py,20,12)||inn(px,py,16,8))continue;const edge=!inn(px,py,19,11)||inn(px,py,17,9);x.fillStyle=edge?'#4a2c1a':(px%2?'#b9803f':'#8a5a2b');x.fillRect(px,py,1,1)}})();
-/* ---------- game ---------- */
-const ING={yogurt:['Vanilla Yogurt','#fff3cf'],granola:['Granola','#d9a15b'],apple:['Roasted Apples','#e8884a'],pumpkin:['Pumpkin Spice','#f19a2b'],honey:['Honey','#f6c445'],cream:['Whipped Cream','#ffffff'],pecan:['Pecans','#a86a3a'],caramel:['Caramel','#d58a2f'],choc:['Chocolate','#9a6244'],banana:['Banana','#f7e27a'],berry:['Strawberry','#f0647a'],cheese:['Cheese?!','#ffd24d']};
-const WEEKLY=[['yogurt','granola','apple','pumpkin','honey'],['cream','pecan','caramel','apple','granola'],['yogurt','pumpkin','pecan','honey','cream']];
-const wk=Math.floor(Date.now()/6048e5),secret=WEEKLY[wk%WEEKLY.length],MAX=5;
-let cup=[],marks=[],tries=0,locked=false,sound=true;
-const $=i=>document.getElementById(i);
-$('n').textContent=secret.length;
-$('bank').innerHTML=Object.entries(ING).map(([k,v])=>`<div class="ing" data-k="${k}">${imgTag(k,4)}<span>${v[0]}</span></div>`).join('');
-function blip(f=440,d=.12){if(!sound)return;try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;o.type='square';g.gain.value=.08;o.connect(g);g.connect(a.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);o.stop(a.currentTime+d)}catch(e){}}
-function leaves(n=40){const ks=['apple','pumpkin','pecan','honey'];for(let i=0;i<n;i++){const l=document.createElement('div');l.className='leaf';l.innerHTML=imgTag(ks[i%4],3);l.style.left=Math.random()*100+'vw';l.style.animationDuration=2+Math.random()*2.5+'s';l.style.animationDelay=Math.random()*.8+'s';document.body.appendChild(l);setTimeout(()=>l.remove(),5500)}}
-function draw(){const c=$('cup');c.innerHTML=cup.map((k,i)=>`<div class="layer ${marks[i]||''}" data-i="${i}" style="background:${ING[k][1]}">${imgTag(k,3)}<b>${ING[k][0]}</b></div>`).join('');
- $('st').textContent=tries?`Tries this round: ${tries}`:''}
-function add(k){if(locked)return;if(cup.includes(k)){msg('Already in the cup!');shake();return}
- if(cup.length>=MAX){msg(`Cup is full (${MAX})! Tap a layer to remove it.`);shake();return}
- cup.push(k);marks=[];draw();blip(300+cup.length*90);msg(ING[k][0]+' plopped in!')}
-function msg(t){$('msg').textContent=t}function shake(){const c=$('cup');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');blip(150,.2)}
-$('cup').onclick=e=>{const l=e.target.closest('.layer');if(l&&!locked){cup.splice(+l.dataset.i,1);marks=[];draw();blip(200)}};
-$('clr').onclick=()=>{cup=[];marks=[];draw();msg('Fresh cup!')};
-// drag & drop from the basket (pointer events: mouse + touch); a quick tap also adds
-let g=null,sx=0,sy=0,moved=false;
-document.addEventListener('pointerdown',e=>{const t=e.target.closest('.ing');if(!t)return;e.preventDefault();sx=e.clientX;sy=e.clientY;moved=false;g=document.createElement('div');g.className='ghost';g.innerHTML=imgTag(t.dataset.k,5);g.dataset.k=t.dataset.k;document.body.appendChild(g);mv(e)});
-function mv(e){if(!g)return;if(Math.hypot(e.clientX-sx,e.clientY-sy)>10)moved=true;g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';const r=$('cup').getBoundingClientRect();$('cup').classList.toggle('over',e.clientX>r.left-20&&e.clientX<r.right+20&&e.clientY>r.top-60&&e.clientY<r.bottom+20)}
-document.addEventListener('pointermove',mv);
-document.addEventListener('pointerup',e=>{if(!g)return;const over=$('cup').classList.contains('over');$('cup').classList.remove('over');const k=g.dataset.k;g.remove();g=null;if(over||!moved)add(k)});
-document.addEventListener('pointercancel',()=>{if(!g)return;$('cup').classList.remove('over');g.remove();g=null});
-$('chk').onclick=()=>{if(locked)return;if(cup.length<secret.length){msg(`Grandma uses ${secret.length} ingredients - add more!`);shake();return}
- tries++;marks=cup.map(k=>secret.includes(k)?'ok':'no');const right=marks.filter(m=>m=='ok').length;draw();
- if(right==secret.length&&cup.length==secret.length){locked=true;blip(660,.3);setTimeout(()=>blip(880,.4),150);leaves();setTimeout(winner,900)}
- else{msg(`${right} of ${secret.length} are right! Green = in Grandma's recipe, red = not. Tap red layers to swap them.`);blip(250,.25)}};
-function winner(){const code='GOLD-'+Math.random().toString(36).slice(2,6).toUpperCase(),prize=tries<=2?'FREE Fall Parfait!':tries<=4?'FREE coffee with any parfait':'15% off your parfait';
- $('win').innerHTML=`<div style="margin-bottom:6px">${imgTag('parfait',5)}</div><h2 style="margin:0">You cracked it in ${tries} ${tries==1?'try':'tries'}!</h2><div class="coupon">You won:<big>${prize}</big>Code: <b>${code}</b></div>
- <p style="margin:10px 0 0;font-size:9px">Join Grandma's Loyalty Club to save your prize:</p><input id="nm" placeholder="Your first name"><input id="em" type="email" placeholder="Email">
- <button class="big" id="sv">SAVE MY PRIZE</button><button class="big alt" id="ag">PLAY AGAIN</button>`;$('dlg').showModal();
- $('sv').onclick=()=>{const em=$('em').value.trim();if(!/\S+@\S+\.\S+/.test(em)){$('em').style.borderColor='#d7263d';return}
-  try{const L=JSON.parse(localStorage.getItem('gb_members')||'[]');L.push({name:$('nm').value,email:em,code,prize,tries,wk});localStorage.setItem('gb_members',JSON.stringify(L))}catch(e){}
-  $('sv').textContent='SAVED! SEE YOU AT THE BAKERY';$('sv').disabled=true};
- $('ag').onclick=()=>{$('dlg').close();cup=[];marks=[];tries=0;locked=false;draw();msg('New round! Same secret recipe this week')}}
+
+        const SPR = {
+            yogurt: ["..kkkkkk..", ".kwwwwwwk.", "kkkkkkkkkk", "kcccccccck", "kccccrccck", "kcccccccck", ".kcccccck.", "..kcccck..", "..kkkkkk.."],
+            granola: ["...kk.kk..", "..ktbtbtk.", ".ktbtttbtk", ".kbtttbttk", "kttbtbtttk", "ktbtttbttk", "kkttbtbtkk", ".kkkkkkkk."],
+            apple: ["....kbgg..", "..kkkbkkk.", ".khhhhhhhk", "khhohhhhhk", "khhhhhohhk", "khohhhhhhk", ".khhhhhhk.", "..kkhhkk..", "....kk...."],
+            pumpkin: ["....kg....", ".kkkkkkkk.", "kOOkOOkOOk", "kOkOOOOkOk", "kOkOOOOkOk", "kOOkOOkOOk", ".kOOOOOOk.", "..kkkkkk.."],
+            honey: ["..kkkkkk..", "..kbbbbk..", ".kkkkkkkk.", "kyyyyyyyyk", "kyywwyyyyk", "kyyyyyyyyk", "kyyyyyyyyk", ".kyyyyyyk.", "..kkkkkk.."],
+            cream: ["....kk....", "...kwwk...", "..kwwwwk..", "...kwwk...", ".kkwwwwkk.", "kwwwwwwwwk", ".kwwwwwwk.", "kwwwwwwwwk", "kkkkkkkkkk"],
+            pecan: ["..kkkk....", ".kbbbbk...", "kbBbbbbk..", "kbbBbbbbk.", ".kbbBbbbk.", "..kbbbbk..", "...kkkk..."],
+            caramel: ["...kaak...", "..kaaaak..", ".kaaaaaak.", "kaaaaaaaak", "kkkkkkkkkk", "kbbbbbbbbk", ".kbbbbbbk.", "..kkkkkk.."],
+            choc: ["kkkkkkkkkk", "kBBkBBkBBk", "kBBkBBkBBk", "kkkkkkkkkk", "kBBkBBkBBk", "kBBkBBkBBk", "kkkkkkkkkk"],
+            banana: [".......kk.", "......knk.", ".....knnk.", "....knnnk.", "...knnnnk.", ".kknnnnk..", "knnnnnkk..", ".kkkkk...."],
+            berry: ["...gggg...", "..kkggkk..", ".kppppppk.", "kpprpppppk", "kppppprppk", ".kpprpppk.", "..kppppk..", "...kppk...", "....kk...."],
+            cheese: ["......kkk.", "...kkkllk.", ".kkllllllk", "klllldllk.", "kllllllllk", "kllldlllld", "kkkkkkkkkk"],
+            parfait: ["......gg......", ".....krrk.....", "....kkwwkk....", "...kwwwwwwk...", "..kwwwwwwwwk..", ".kwwwwwwwwwwk.", ".kkkkkkkkkkkk.", ".kcccccccccck.", ".koooooooooook.", ".kttttttttttk.", ".kcccccccccck.", ".koooooooooook.", "..kccccccccck.", "...kcccccck...", ".....kwwk.....", ".....kwwk.....", "...kkkkkkkk..."]
+        };
+        const cache = {};
+
+        /* --- Sprite Rendering Engine --- */
+        function spr(k) {
+            if (cache[k]) return cache[k];
+            const rows = SPR[k];
+            const big = (k == 'parfait');
+            const W0 = Math.max(...rows.map(r => r.length));
+            const W = big ? W0 : Math.max(10, W0);
+            const H = big ? rows.length : Math.max(10, rows.length);
+
+            const c = document.createElement('canvas');
+            c.width = W;
+            c.height = H;
+            const x = c.getContext('2d');
+            const top = H - rows.length;
+            const left = Math.floor((W - W0) / 2);
+
+            rows.forEach((r, j) => {
+                [...r.padEnd(W0, '.')].forEach((ch, i) => {
+                    if (PAL[ch]) {
+                        x.fillStyle = PAL[ch];
+                        x.fillRect(i + left, j + top, 1, 1);
+                    }
+                });
+            });
+            return cache[k] = { u: c.toDataURL(), w: W, h: H };
+        }
+
+        function imgTag(k, s) {
+            const o = spr(k);
+            return `<img class="px" alt="" draggable="false" src="${o.u}" style="width:${o.w * s}px;height:${o.h * s}px">`;
+        }
+
+        /* --- Initialize UI Assets --- */
+        (function initAssets() {
+            const o = spr('parfait');
+            const h = document.getElementById('heroimg');
+            h.src = o.u;
+            h.style.width = (o.w * 12) + 'px';
+            h.style.height = (o.h * 12) + 'px';
+
+            const c = document.getElementById('handle');
+            const x = c.getContext('2d');
+            const isInRing = (px, py, rx, ry) => ((px + .5 - 20) / rx) ** 2 + ((py + .5 - 12) / ry) ** 2 <= 1;
+
+            for (let py = 0; py < 12; py++) {
+                for (let px = 0; px < 40; px++) {
+                    if (!isInRing(px, py, 20, 12) || isInRing(px, py, 16, 8)) continue;
+                    const isEdge = !isInRing(px, py, 19, 11) || isInRing(px, py, 17, 9);
+                    x.fillStyle = isEdge ? '#4a2c1a' : (px % 2 ? '#b9803f' : '#8a5a2b');
+                    x.fillRect(px, py, 1, 1);
+                }
+            }
+        })();
+
+        /* --- Game Data & State --- */
+        const ING = {
+            yogurt: ['Vanilla Yogurt', '#fff3cf'],
+            granola: ['Granola', '#d9a15b'],
+            apple: ['Roasted Apples', '#e8884a'],
+            pumpkin: ['Pumpkin Spice', '#f19a2b'],
+            honey: ['Honey', '#f6c445'],
+            cream: ['Whipped Cream', '#ffffff'],
+            pecan: ['Pecans', '#a86a3a'],
+            caramel: ['Caramel', '#d58a2f'],
+            choc: ['Chocolate', '#9a6244'],
+            banana: ['Banana', '#f7e27a'],
+            berry: ['Strawberry', '#f0647a'],
+            cheese: ['Cheese?!', '#ffd24d']
+        };
+
+        const WEEKLY = [
+            ['yogurt', 'granola', 'apple', 'pumpkin', 'honey'],
+            ['cream', 'pecan', 'caramel', 'apple', 'granola'],
+            ['yogurt', 'pumpkin', 'pecan', 'honey', 'cream']
+        ];
+
+        const wk = Math.floor(Date.now() / 6048e5);
+        const secret = WEEKLY[wk % WEEKLY.length];
+        const MAX = 5;
+
+        let cup = [], marks = [], tries = 0, locked = false, sound = true;
+        const $ = i => document.getElementById(i);
+
+        /* --- Game UI Population --- */
+        $('n').textContent = secret.length;
+        $('bank').innerHTML = Object.entries(ING).map(([k, v]) =>
+            `<div class="ing" data-k="${k}">${imgTag(k, 4)}<span>${v[0]}</span></div>`
+        ).join('');
+
+        /* --- Audio & Visual Effects --- */
+        function blip(f = 440, d = .12) {
+            if (!sound) return;
+            try {
+                const a = new (window.AudioContext || window.webkitAudioContext)();
+                const o = a.createOscillator();
+                const g = a.createGain();
+                o.frequency.value = f;
+                o.type = 'square';
+                g.gain.value = .08;
+                o.connect(g);
+                g.connect(a.destination);
+                o.start();
+                g.gain.exponentialRampToValueAtTime(.001, a.currentTime + d);
+                o.stop(a.currentTime + d);
+            } catch (e) {}
+        }
+
+        function leaves(n = 40) {
+            const ks = ['apple', 'pumpkin', 'pecan', 'honey'];
+            for (let i = 0; i < n; i++) {
+                const l = document.createElement('div');
+                l.className = 'leaf';
+                l.innerHTML = imgTag(ks[i % 4], 3);
+                l.style.left = (Math.random() * 100) + 'vw';
+                l.style.animationDuration = (2 + Math.random() * 2.5) + 's';
+                l.style.animationDelay = (Math.random() * .8) + 's';
+                document.body.appendChild(l);
+                setTimeout(() => l.remove(), 5500);
+            }
+        }
+
+        /* --- Core Game Logic --- */
+        function draw() {
+            const c = $('cup');
+            c.innerHTML = cup.map((k, i) =>
+                `<div class="layer ${marks[i] || ''}" data-i="${i}" style="background:${ING[k][1]}">
+                    ${imgTag(k, 3)}<b>${ING[k][0]}</b>
+                </div>`
+            ).join('');
+            $('st').textContent = tries ? `Tries this round: ${tries}` : '';
+        }
+
+        function add(k) {
+            if (locked) return;
+            if (cup.includes(k)) {
+                msg('Already in the cup!');
+                shake();
+                return;
+            }
+            if (cup.length >= MAX) {
+                msg(`Cup is full (${MAX})! Tap a layer to remove it.`);
+                shake();
+                return;
+            }
+            cup.push(k);
+            marks = [];
 draw();
-</script></body></html>
+            blip(300 + cup.length * 90);
+            msg(ING[k][0] + ' plopped in!');
+        }
+
+        function msg(t) { $('msg').textContent = t; }
+
+        function shake() {
+            const c = $('cup');
+            c.classList.remove('shake');
+            void c.offsetWidth;
+            c.classList.add('shake');
+            blip(150, .2);
+        }
+
+        /* --- Event Handlers --- */
+        $('cup').onclick = e => {
+            const l = e.target.closest('.layer');
+            if (l && !locked) {
+                cup.splice(+l.dataset.i, 1);
+                marks = [];
+                draw();
+                blip(200);
+            }
+        };
+
+        $('clr').onclick = () => {
+            cup = [];
+            marks = [];
+            draw();
+            msg('Fresh cup!');
+        };
+
+        /* --- Drag and Drop Logic --- */
+        let g = null, sx = 0, sy = 0, moved = false;
+
+        document.addEventListener('pointerdown', e => {
+            const t = e.target.closest('.ing');
+            if (!t) return;
+            e.preventDefault();
+            sx = e.clientX;
+            sy = e.clientY;
+            moved = false;
+            g = document.createElement('div');
+            g.className = 'ghost';
+            g.innerHTML = imgTag(t.dataset.k, 5);
+            g.dataset.k = t.dataset.k;
+            document.body.appendChild(g);
+            moveGhost(e);
+        });
+
+        function moveGhost(e) {
+            if (!g) return;
+            if (Math.hypot(e.clientX - sx, e.clientY - sy) > 10) moved = true;
+            g.style.left = e.clientX + 'px';
+            g.style.top = e.clientY + 'px';
+            const r = $('cup').getBoundingClientRect();
+            const isOverCup = (
+                e.clientX > r.left - 20 &&
+                e.clientX < r.right + 20 &&
+                e.clientY > r.top - 60 &&
+                e.clientY < r.bottom + 20
+            );
+            $('cup').classList.toggle('over', isOverCup);
+        }
+
+        document.addEventListener('pointermove', moveGhost);
+
+        document.addEventListener('pointerup', e => {
+            if (!g) return;
+            const over = $('cup').classList.contains('over');
+            $('cup').classList.remove('over');
+            const k = g.dataset.k;
+            g.remove();
+            g = null;
+            if (over || !moved) add(k);
+        });
+
+        document.addEventListener('pointercancel', () => {
+            if (!g) return;
+            $('cup').classList.remove('over');
+            g.remove();
+            g = null;
+        });
+
+        /* --- Win Condition & Dialog --- */
+        $('chk').onclick = () => {
+            if (locked) return;
+            if (cup.length < secret.length) {
+                msg(`Grandma uses ${secret.length} ingredients - add more!`);
+                shake();
+                return;
+            }
+            tries++;
+            marks = cup.map(k => secret.includes(k) ? 'ok' : 'no');
+            const right = marks.filter(m => m == 'ok').length;
+            draw();
+
+            if (right == secret.length && cup.length == secret.length) {
+                locked = true;
+                blip(660, .3);
+                setTimeout(() => blip(880, .4), 150);
+                leaves();
+                setTimeout(showWinner, 900);
+            } else {
+                msg(`${right} of ${secret.length} are right! Green = in Grandma's recipe, red = not. Tap red layers to swap them.`);
+                blip(250, .25);
+            }
+        };
+
+        function showWinner() {
+            const code = 'GOLD-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+            const prize = tries <= 2 ? 'FREE Fall Parfait!' :
+                          tries <= 4 ? 'FREE coffee with any parfait' :
+                          '15% off your parfait';
+
+            $('win').innerHTML = `
+                <div style="margin-bottom:6px">${imgTag('parfait', 5)}</div>
+                <h2 style="margin:0">You cracked it in ${tries} ${tries == 1 ? 'try' : 'tries'}!</h2>
+                <div class="coupon">You won:<big>${prize}</big>Code: <b>${code}</b></div>
+                <p style="margin:10px 0 0;font-size:9px">Join Grandma's Loyalty Club to save your prize:</p>
+                <input id="nm" placeholder="Your first name">
+                <input id="em" type="email" placeholder="Email">
+                <button class="big" id="sv">SAVE MY PRIZE</button>
+                <button class="big alt" id="ag">PLAY AGAIN</button>
+            `;
+            $('dlg').showModal();
+
+            $('sv').onclick = () => {
+                const em = $('em').value.trim();
+                if (!/\S+@\S+\.\S+/.test(em)) {
+                    $('em').style.borderColor = '#d7263d';
+                    return;
+                }
+                try {
+                    const L = JSON.parse(localStorage.getItem('gb_members') || '[]');
+                    L.push({ name: $('nm').value, email: em, code, prize, tries, wk });
+                    localStorage.setItem('gb_members', JSON.stringify(L));
+                } catch (e) {}
+                $('sv').textContent = 'SAVED! SEE YOU AT THE BAKERY';
+                $('sv').disabled = true;
+            };
+
+            $('ag').onclick = () => {
+                $('dlg').close();
+                cup = [];
+                marks = [];
+                tries = 0;
+                locked = false;
+                draw();
+                msg('New round! Same secret recipe this week');
+            };
+        }
+
+        /* --- Initial Draw --- */
+        draw();
+    </script>
+</body>
+</html>
