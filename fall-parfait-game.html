@@ -1,96 +1,745 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Grandma's Fall Parfait · Guess the Recipe</title>
-<style>
-:root{--bg:#ffe8c2;--bg2:#ffd08a;--card:#fff6e3;--ink:#4a2c1a;--acc:#e0642b;--red:#d7263d;--grn:#4f9a3c;--line:#4a2c1a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#3a2214;--bg2:#2a170d;--card:#5a3720;--ink:#ffe8c2;--line:#1b0e06}}
-:root[data-theme="dark"]{--bg:#3a2214;--bg2:#2a170d;--card:#5a3720;--ink:#ffe8c2;--line:#1b0e06}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;min-height:100%;background:linear-gradient(var(--bg),var(--bg2));color:var(--ink);font:700 17px/1.35 "Comic Sans MS","Chalkboard SE","Marker Felt",system-ui,sans-serif;text-align:center;overflow-x:hidden}
-.wrap{max-width:560px;margin:auto;padding:14px 14px 40px}
-h1{margin:6px 0 0;font-size:1.7rem;color:var(--acc);text-shadow:2px 2px 0 var(--line)}
-.hero{position:relative;margin:8px auto;width:200px}
-.sale{position:absolute;top:6px;right:-62px;background:var(--red);color:#fff;border:3px solid var(--line);border-radius:10px;padding:4px 8px;font-size:.78rem;transform:rotate(10deg);box-shadow:3px 3px 0 var(--line);animation:wob 2s infinite}
-@keyframes wob{50%{transform:rotate(5deg) scale(1.06)}}
-.card{background:var(--card);border:4px solid var(--line);border-radius:22px;padding:12px;margin:12px 0;box-shadow:5px 5px 0 var(--line)}
-.stage{display:flex;justify-content:center;align-items:flex-end;gap:10px;min-height:290px}
-.cup{position:relative;width:190px;height:250px;border:5px solid var(--line);border-top:none;border-radius:0 0 70px 70px;background:rgba(255,255,255,.35);overflow:hidden;display:flex;flex-direction:column-reverse;transition:transform .2s}
-.cup.over{transform:scale(1.07) rotate(-2deg);background:rgba(255,255,255,.7)}
-.rim{width:210px;height:16px;border:5px solid var(--line);border-radius:12px;background:var(--card);margin:0 auto -4px;position:relative;z-index:2}
-.layer{height:20%;flex:none;display:flex;align-items:center;justify-content:center;gap:2px;font-size:1.3rem;border-top:3px solid var(--line);animation:drop .5s cubic-bezier(.3,1.6,.5,1);cursor:pointer;position:relative}
-.layer b{font-size:.78rem;background:#fff9;border-radius:8px;padding:0 6px;color:#4a2c1a}
-.layer.ok{box-shadow:inset 0 0 0 4px var(--grn)}.layer.no{box-shadow:inset 0 0 0 4px var(--red);filter:saturate(.6)}
-@keyframes drop{0%{transform:translateY(-260px) scaleY(1.4);opacity:0}70%{transform:translateY(8px) scaleY(.8)}100%{transform:none;opacity:1}}
-.shake{animation:shake .4s}@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.bank{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.ing{touch-action:none;user-select:none;cursor:grab;background:#fff;color:#4a2c1a;border:3px solid var(--line);border-radius:18px;padding:6px 2px;box-shadow:3px 3px 0 var(--line);transition:transform .1s}
-.ing:hover{transform:translateY(-3px) rotate(-3deg)}.ing:active{cursor:grabbing}.ing i{display:block;font-style:normal;font-size:2rem}.ing span{font-size:.68rem;display:block;line-height:1.1}
-.ghost{position:fixed;z-index:99;pointer-events:none;font-size:2.6rem;transform:translate(-50%,-50%) rotate(12deg);filter:drop-shadow(3px 4px 0 #0004)}
-button.big{font:inherit;font-size:1.05rem;color:#fff;background:var(--acc);border:4px solid var(--line);border-radius:16px;padding:10px 18px;margin:8px 4px 0;box-shadow:4px 4px 0 var(--line);cursor:pointer}
-button.big:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--line)}button.alt{background:var(--card);color:var(--ink)}button:disabled{opacity:.45}
-#msg{min-height:3em;font-size:1.05rem}.chips{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
-input{font:inherit;width:100%;padding:10px;margin:5px 0;border:3px solid var(--line);border-radius:12px;background:#fff;color:#4a2c1a}
-.coupon{border:4px dashed var(--red);border-radius:16px;padding:10px;margin-top:10px;background:#fff;color:#4a2c1a}
-.coupon big{display:block;font-size:1.8rem;color:var(--red);letter-spacing:2px}
-.leaf{position:fixed;top:-40px;z-index:98;pointer-events:none;font-size:1.8rem;animation:fall linear forwards}
-@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
-dialog{border:4px solid var(--line);border-radius:22px;background:var(--card);color:var(--ink);font:inherit;max-width:420px;width:92%}
-.stats{font-size:.8rem;opacity:.8}
-</style></head><body><div class="wrap">
-<h1>🍂 Grandma's Fall Parfait 🍂</h1>
-<div class="hero">
-<svg viewBox="0 0 200 190" width="200" aria-label="Grandma's Fall Parfait"><g stroke="#4a2c1a" stroke-width="5" stroke-linejoin="round">
-<path d="M40 70h120l-18 105q-2 8-10 8H68q-8 0-10-8z" fill="#fff6e3"/><path d="M47 105h106l-8 55H55z" fill="#e0642b" stroke="none"/><path d="M52 135h96l-4 25H56z" fill="#c98a3b" stroke="none"/><path d="M45 85h110l-4 25H49z" fill="#ffe8c2" stroke="none"/>
-<path d="M40 70h120l-18 105q-2 8-10 8H68q-8 0-10-8z" fill="none"/>
-<path d="M50 70q-8-30 20-34 5-22 30-18 25-4 30 18 28 4 20 34z" fill="#fff"/><circle cx="100" cy="30" r="12" fill="#d7263d"/><path d="M100 18q10-14 24-10-4 12-24 10z" fill="#4f9a3c"/></g>
-<text x="64" y="68" font-size="22">🍎</text><text x="104" y="68" font-size="22">🍂</text></svg>
-<div class="sale">LIMITED WEEKLY SALE!</div></div>
-<div class="card"><div style="font-size:1.1rem">Grandma's secret weekly recipe has <b id="n">5</b> ingredients.<br>Drag them into the cup and guess!</div><div class="stats" id="st"></div></div>
-<div class="card"><div class="stage" id="stage"><div><div class="rim"></div><div class="cup" id="cup"></div></div></div>
-<div id="msg">Drag ingredients into the cup 👇</div>
-<button class="big" id="chk">Taste it! 😋</button><button class="big alt" id="clr">Empty cup</button></div>
-<div class="card"><div class="bank" id="bank"></div></div>
-</div>
-<dialog id="dlg"><div id="win"></div></dialog>
-<script>
-const ING={yogurt:['🥛','Vanilla Yogurt','#fff3cf'],granola:['🌾','Granola','#d9a15b'],apple:['🍎','Roasted Apples','#e8884a'],pumpkin:['🎃','Pumpkin Spice','#f19a2b'],honey:['🍯','Honey','#f6c445'],cream:['🍦','Whipped Cream','#ffffff'],pecan:['🌰','Pecans','#a86a3a'],caramel:['🍮','Caramel','#d58a2f'],choc:['🍫','Chocolate','#7a4a30'],banana:['🍌','Banana','#f7e27a'],berry:['🍓','Strawberry','#f0647a'],cheese:['🧀','Cheese?!','#ffd24d']};
-const WEEKLY=[['yogurt','granola','apple','pumpkin','honey'],['cream','pecan','caramel','apple','granola'],['yogurt','pumpkin','pecan','honey','cream']];
-const wk=Math.floor(Date.now()/6048e5),secret=WEEKLY[wk%WEEKLY.length],MAX=5;
-let cup=[],marks=[],tries=0,locked=false,sound=true;
-const $=i=>document.getElementById(i);
-$('n').textContent=secret.length;
-$('bank').innerHTML=Object.entries(ING).map(([k,v])=>`<div class="ing" data-k="${k}"><i>${v[0]}</i><span>${v[1]}</span></div>`).join('');
-function blip(f=440,d=.12){if(!sound)return;try{const a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;o.type='triangle';g.gain.value=.15;o.connect(g);g.connect(a.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);o.stop(a.currentTime+d)}catch(e){}}
-function leaves(n=40){for(let i=0;i<n;i++){const l=document.createElement('div');l.className='leaf';l.textContent=['🍂','🍁','🍃','🎃'][i%4];l.style.left=Math.random()*100+'vw';l.style.animationDuration=2+Math.random()*2.5+'s';l.style.animationDelay=Math.random()*.8+'s';document.body.appendChild(l);setTimeout(()=>l.remove(),5500)}}
-function draw(){const c=$('cup');c.innerHTML=cup.map((k,i)=>`<div class="layer ${marks[i]||''}" data-i="${i}" style="background:${ING[k][2]}"><span>${ING[k][0]}</span><b>${ING[k][1]}</b></div>`).join('');
- $('st').textContent=tries?`Tries this round: ${tries}`:''}
-function add(k){if(locked)return;if(cup.includes(k)){msg('Already in the cup! 🙈');shake();return}
- if(cup.length>=MAX){msg(`Cup is full (${MAX})! Tap a layer to remove it.`);shake();return}
- cup.push(k);marks=[];draw();blip(300+cup.length*90);msg(ING[k][1]+' plopped in! 🎉')}
-function msg(t){$('msg').textContent=t}function shake(){const c=$('cup');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');blip(150,.2)}
-$('cup').onclick=e=>{const l=e.target.closest('.layer');if(l&&!locked){cup.splice(+l.dataset.i,1);marks=[];draw();blip(200)}};
-$('clr').onclick=()=>{cup=[];marks=[];draw();msg('Fresh cup! 🧁')};
-// drag & drop (pointer events: mouse + touch)
-let g=null;
-document.addEventListener('pointerdown',e=>{const t=e.target.closest('.ing');if(!t)return;e.preventDefault();g=document.createElement('div');g.className='ghost';g.textContent=ING[t.dataset.k][0];g.dataset.k=t.dataset.k;document.body.appendChild(g);mv(e)});
-function mv(e){if(!g)return;g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';const r=$('cup').getBoundingClientRect();$('cup').classList.toggle('over',e.clientX>r.left-20&&e.clientX<r.right+20&&e.clientY>r.top-60&&e.clientY<r.bottom+20)}
-document.addEventListener('pointermove',mv);
-document.addEventListener('pointerup',e=>{if(!g)return;const over=$('cup').classList.contains('over');$('cup').classList.remove('over');const k=g.dataset.k;g.remove();g=null;if(over)add(k)});
-document.addEventListener('keydown',()=>{});
-$('bank').addEventListener('click',e=>{/* keyboard/tap fallback handled by drag; tap = add */});
-$('bank').addEventListener('dblclick',e=>{const t=e.target.closest('.ing');if(t)add(t.dataset.k)});
-$('chk').onclick=()=>{if(locked)return;if(cup.length<secret.length){msg(`Grandma uses ${secret.length} ingredients — add more!`);shake();return}
- tries++;marks=cup.map(k=>secret.includes(k)?'ok':'no');const right=marks.filter(m=>m=='ok').length;draw();
- if(right==secret.length&&cup.length==secret.length){locked=true;blip(660,.3);setTimeout(()=>blip(880,.4),150);leaves();setTimeout(winner,900)}
- else{msg(`${right} of ${secret.length} are right! 🟢 = in Grandma's recipe, 🔴 = not. Tap red layers to swap them.`);blip(250,.25)}};
-function winner(){const code='GOLD-'+Math.random().toString(36).slice(2,6).toUpperCase(),prize=tries<=2?'FREE Fall Parfait!':tries<=4?'FREE coffee with any parfait':'15% off your parfait';
- $('win').innerHTML=`<div style="font-size:2.5rem">🏆</div><h2 style="margin:0">You cracked it in ${tries} ${tries==1?'try':'tries'}!</h2><div class="coupon">You won:<big>${prize}</big>Code: <b>${code}</b></div>
- <p style="margin:10px 0 0">Join Grandma's Loyalty Club to save your prize:</p><input id="nm" placeholder="Your first name"><input id="em" type="email" placeholder="Email">
- <button class="big" id="sv">Save my prize 🎁</button><button class="big alt" id="ag">Play again</button>`;$('dlg').showModal();
- $('sv').onclick=()=>{const em=$('em').value.trim();if(!/\S+@\S+\.\S+/.test(em)){$('em').style.borderColor='#d7263d';return}
-  try{const L=JSON.parse(localStorage.getItem('gb_members')||'[]');L.push({name:$('nm').value,email:em,code,prize,tries,wk});localStorage.setItem('gb_members',JSON.stringify(L))}catch(e){}
-  $('sv').textContent='Saved! See you at the bakery 🥧';$('sv').disabled=true};
- $('ag').onclick=()=>{$('dlg').close();cup=[];marks=[];tries=0;locked=false;draw();msg('New round! Same secret recipe this week 😉')}}
-draw();
-</script></body></html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Grandma's Fall Parfait · Guess the Recipe</title>
+    <style>
+        :root {
+            --bg: #ffe8c2;
+            --bg2: #ffd08a;
+            --card: #fff6e3;
+            --ink: #4a2c1a;
+            --acc: #e0642b;
+            --red: #d7263d;
+            --grn: #4f9a3c;
+            --line: #4a2c1a;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #3a2214;
+                --bg2: #2a170d;
+                --card: #5a3720;
+                --ink: #ffe8c2;
+                --line: #1b0e06;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #3a2214;
+            --bg2: #2a170d;
+            --card: #5a3720;
+            --ink: #ffe8c2;
+            --line: #1b0e06;
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: linear-gradient(var(--bg), var(--bg2));
+            color: var(--ink);
+            font: 700 17px/1.35 "Comic Sans MS", "Chalkboard SE", "Marker Felt", system-ui, sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .wrap {
+            max-width: 560px;
+            margin: auto;
+            padding: 14px 14px 40px;
+        }
+
+        h1 {
+            margin: 6px 0 0;
+            font-size: 1.7rem;
+            color: var(--acc);
+            text-shadow: 2px 2px 0 var(--line);
+            padding: 0 100px; /* keeps the title clear of the logo */
+        }
+
+        /* ---------- Logo badge (top-left corner) ---------- */
+        .brand {
+            position: absolute;
+            top: calc(10px + env(safe-area-inset-top, 0px));
+            left: 10px;
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #ffffff, var(--card) 70%);
+            border: 5px solid var(--line);
+            /* hard cartoon shadow + orange ring + soft glow */
+            box-shadow:
+                5px 6px 0 var(--line),
+                0 0 0 5px var(--acc),
+                0 10px 22px rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 5;
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.2s;
+        }
+
+        .brand:hover {
+            animation-play-state: paused;
+            transform: rotate(-8deg) scale(1.12);
+        }
+
+        .brand img {
+            width: 86%;
+            height: 86%;
+            object-fit: contain;
+            filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes float {
+            50% { transform: translateY(-5px) rotate(-3deg); }
+        }
+
+        .hero {
+            position: relative;
+            margin: 8px auto;
+            width: 200px;
+        }
+
+        .sale {
+            position: absolute;
+            top: 6px;
+            right: -62px;
+            background: var(--red);
+            color: #fff;
+            border: 3px solid var(--line);
+            border-radius: 10px;
+            padding: 4px 8px;
+            font-size: 0.78rem;
+            transform: rotate(10deg);
+            box-shadow: 3px 3px 0 var(--line);
+            animation: wobble 2s infinite;
+        }
+
+        @keyframes wobble {
+            50% {
+                transform: rotate(5deg) scale(1.06);
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border: 4px solid var(--line);
+            border-radius: 22px;
+            padding: 12px;
+            margin: 12px 0;
+            box-shadow: 5px 5px 0 var(--line);
+        }
+
+        .stage {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 10px;
+            min-height: 290px;
+        }
+
+        .cup {
+            position: relative;
+            width: 190px;
+            height: 250px;
+            border: 5px solid var(--line);
+            border-top: none;
+            border-radius: 0 0 70px 70px;
+            background: rgba(255, 255, 255, 0.35);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column-reverse;
+            margin: 0 auto; /* centers the cup under the wider rim */
+            box-shadow: 6px 6px 0 var(--line);
+            transition: transform 0.2s;
+        }
+
+        .cup.over {
+            transform: scale(1.07) rotate(-2deg);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .rim {
+            width: 210px;
+            height: 16px;
+            border: 5px solid var(--line);
+            border-radius: 12px;
+            background: var(--card);
+            margin: 0 auto -4px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 4px 4px 0 var(--line);
+        }
+
+        /* soft ground shadow under the cup */
+        .stage > div {
+            position: relative;
+            padding-bottom: 14px;
+        }
+
+        .stage > div::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 200px;
+            height: 16px;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.3), transparent 70%);
+        }
+
+        .layer {
+            height: 20%;
+            flex: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            font-size: 1.3rem;
+            border-top: 3px solid var(--line);
+            animation: drop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .layer b {
+            font-size: 0.78rem;
+            background: #ffffff99;
+            border-radius: 8px;
+            padding: 0 6px;
+            color: #4a2c1a;
+        }
+
+        .layer.ok {
+            box-shadow: inset 0 0 0 4px var(--grn);
+        }
+
+        .layer.no {
+            box-shadow: inset 0 0 0 4px var(--red);
+            filter: saturate(0.6);
+        }
+
+        @keyframes drop {
+            0% {
+                transform: translateY(-260px) scaleY(1.4);
+                opacity: 0;
+            }
+            70% {
+                transform: translateY(8px) scaleY(0.8);
+            }
+            100% {
+                transform: none;
+                opacity: 1;
+            }
+        }
+
+        .shake {
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .bank {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .ing {
+            touch-action: none;
+            user-select: none;
+            cursor: grab;
+            background: #fff;
+            color: #4a2c1a;
+            border: 3px solid var(--line);
+            border-radius: 18px;
+            padding: 6px 2px;
+            box-shadow: 3px 3px 0 var(--line);
+            transition: transform 0.1s;
+        }
+
+        .ing:hover {
+            transform: translateY(-3px) rotate(-3deg);
+        }
+
+        .ing:active {
+            cursor: grabbing;
+        }
+
+        .ing i {
+            display: block;
+            font-style: normal;
+            font-size: 2rem;
+        }
+
+        .ing span {
+            font-size: 0.68rem;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .ghost {
+            position: fixed;
+            z-index: 99;
+            pointer-events: none;
+            font-size: 2.6rem;
+            transform: translate(-50%, -50%) rotate(12deg);
+            filter: drop-shadow(3px 4px 0 #0004);
+        }
+
+        button.big {
+            font: inherit;
+            font-size: 1.05rem;
+            color: #fff;
+            background: var(--acc);
+            border: 4px solid var(--line);
+            border-radius: 16px;
+            padding: 10px 18px;
+            margin: 8px 4px 0;
+            box-shadow: 4px 4px 0 var(--line);
+            cursor: pointer;
+        }
+
+        button.big:active {
+            transform: translate(3px, 3px);
+            box-shadow: 1px 1px 0 var(--line);
+        }
+
+        button.alt {
+            background: var(--card);
+            color: var(--ink);
+        }
+
+        button:disabled {
+            opacity: 0.45;
+        }
+
+        #msg {
+            min-height: 3em;
+            font-size: 1.05rem;
+        }
+
+        input {
+            font: inherit;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 3px solid var(--line);
+            border-radius: 12px;
+            background: #fff;
+            color: #4a2c1a;
+        }
+
+        .coupon {
+            border: 4px dashed var(--red);
+            border-radius: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            background: #fff;
+            color: #4a2c1a;
+        }
+
+        .coupon big {
+            display: block;
+            font-size: 1.8rem;
+            color: var(--red);
+            letter-spacing: 2px;
+        }
+
+        .leaf {
+            position: fixed;
+            top: -40px;
+            z-index: 98;
+            pointer-events: none;
+            font-size: 1.8rem;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(540deg);
+            }
+        }
+
+        dialog {
+            border: 4px solid var(--line);
+            border-radius: 22px;
+            background: var(--card);
+            color: var(--ink);
+            font: inherit;
+            max-width: 420px;
+            width: 92%;
+        }
+
+        .stats {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo badge: grandmalogo.png must be in the same folder as this file -->
+    <div class="brand" title="Grandma's Bakeria">
+        <img src="grandmalogo.png" alt="Grandma's Bakeria logo">
+    </div>
+
+    <div class="wrap">
+        <h1>🍂 Grandma's Fall Parfait 🍂</h1>
+
+        <div class="hero">
+            <svg viewBox="0 0 200 190" width="200" aria-label="Grandma's Fall Parfait">
+                <g stroke="#4a2c1a" stroke-width="5" stroke-linejoin="round">
+                    <path d="M40 70h120l-18 105q-2 8-10 8H68q-8 0-10-8z" fill="#fff6e3"/>
+                    <path d="M47 105h106l-8 55H55z" fill="#e0642b" stroke="none"/>
+                    <path d="M52 135h96l-4 25H56z" fill="#c98a3b" stroke="none"/>
+                    <path d="M45 85h110l-4 25H49z" fill="#ffe8c2" stroke="none"/>
+                    <path d="M40 70h120l-18 105q-2 8-10 8H68q-8 0-10-8z" fill="none"/>
+                    <path d="M50 70q-8-30 20-34 5-22 30-18 25-4 30 18 28 4 20 34z" fill="#fff"/>
+                    <circle cx="100" cy="30" r="12" fill="#d7263d"/>
+                    <path d="M100 18q10-14 24-10-4 12-24 10z" fill="#4f9a3c"/>
+                </g>
+                <text x="64" y="68" font-size="22">🍎</text>
+                <text x="104" y="68" font-size="22">🍂</text>
+            </svg>
+            <div class="sale">LIMITED WEEKLY SALE!</div>
+        </div>
+
+        <div class="card">
+            <div style="font-size: 1.1rem">
+                Grandma's secret weekly recipe has <b id="ingredient-count">5</b> ingredients.<br>
+                Drag them into the cup and guess!
+            </div>
+            <div class="stats" id="try-stats"></div>
+        </div>
+
+        <div class="card">
+            <div class="stage" id="stage">
+                <div>
+                    <div class="rim"></div>
+                    <div class="cup" id="cup"></div>
+                </div>
+            </div>
+            <div id="msg">Drag ingredients into the cup 👇</div>
+            <button class="big" id="btn-check">Taste it! 😋</button>
+            <button class="big alt" id="btn-clear">Empty cup</button>
+        </div>
+
+        <div class="card">
+            <div class="bank" id="bank"></div>
+        </div>
+    </div>
+
+    <dialog id="dlg-win">
+        <div id="win-content"></div>
+    </dialog>
+
+    <script>
+        const INGREDIENTS = {
+            yogurt:  ['🥛', 'Vanilla Yogurt', '#fff3cf'],
+            granola: ['🌾', 'Granola',        '#d9a15b'],
+            apple:   ['🍎', 'Roasted Apples', '#e8884a'],
+            pumpkin: ['🎃', 'Pumpkin Spice',  '#f19a2b'],
+            honey:   ['🍯', 'Honey',          '#f6c445'],
+            cream:   ['🍦', 'Whipped Cream',  '#ffffff'],
+            pecan:   ['🌰', 'Pecans',         '#a86a3a'],
+            caramel: ['🍮', 'Caramel',        '#d58a2f'],
+            choc:    ['🍫', 'Chocolate',      '#7a4a30'],
+            banana:  ['🍌', 'Banana',         '#f7e27a'],
+            berry:   ['🍓', 'Strawberry',     '#f0647a'],
+            cheese:  ['🧀', 'Cheese?!',       '#ffd24d']
+        };
+
+        const WEEKLY_RECIPES = [
+            ['yogurt', 'granola', 'apple', 'pumpkin', 'honey'],
+            ['cream', 'pecan', 'caramel', 'apple', 'granola'],
+            ['yogurt', 'pumpkin', 'pecan', 'honey', 'cream']
+        ];
+
+        const weekIndex = Math.floor(Date.now() / 604800000);
+        const secretRecipe = WEEKLY_RECIPES[weekIndex % WEEKLY_RECIPES.length];
+        const MAX_CAPACITY = 5;
+
+        let currentCup = [];
+        let feedbackMarks = [];
+        let totalTries = 0;
+        let isLocked = false;
+        let isSoundEnabled = true;
+
+        const getEl = id => document.getElementById(id);
+
+        /** Sets up labels, builds the ingredient bank, and draws the empty cup. */
+        function init() {
+            getEl('ingredient-count').textContent = secretRecipe.length;
+            getEl('bank').innerHTML = Object.entries(INGREDIENTS).map(([key, data]) => `
+                <div class="ing" data-key="${key}">
+                    <i>${data[0]}</i>
+                    <span>${data[1]}</span>
+                </div>
+            `).join('');
+            renderCup();
+        }
+
+        /** Plays a short synthetic tone using the Web Audio API. */
+        function playBlip(frequency = 440, duration = 0.12) {
+            if (!isSoundEnabled) return;
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'triangle';
+                gainNode.gain.value = 0.15;
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                oscillator.start();
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                oscillator.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        /** Spawns falling leaf emoji to celebrate a win. */
+        function createLeafShower(count = 40) {
+            for (let i = 0; i < count; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                leaf.textContent = ['🍂', '🍁', '🍃', '🎃'][i % 4];
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.animationDuration = (2 + Math.random() * 2.5) + 's';
+                leaf.style.animationDelay = Math.random() * 0.8 + 's';
+                document.body.appendChild(leaf);
+                setTimeout(() => leaf.remove(), 5500);
+            }
+        }
+
+        /** Redraws the cup layers and the tries counter. */
+        function renderCup() {
+            const cupEl = getEl('cup');
+            cupEl.innerHTML = currentCup.map((key, index) => `
+                <div class="layer ${feedbackMarks[index] || ''}" data-index="${index}" style="background:${INGREDIENTS[key][2]}">
+                    <span>${INGREDIENTS[key][0]}</span>
+                    <b>${INGREDIENTS[key][1]}</b>
+                </div>
+            `).join('');
+
+            getEl('try-stats').textContent = totalTries ? `Tries this round: ${totalTries}` : '';
+        }
+
+        /** Adds an ingredient to the cup if it isn't a duplicate and the cup isn't full. */
+        function addIngredient(key) {
+            if (isLocked) return;
+
+            if (currentCup.includes(key)) {
+                updateMessage('Already in the cup! 🙈');
+                triggerShake();
+                return;
+            }
+
+            if (currentCup.length >= MAX_CAPACITY) {
+                updateMessage(`Cup is full (${MAX_CAPACITY})! Tap a layer to remove it.`);
+                triggerShake();
+                return;
+            }
+
+            currentCup.push(key);
+            feedbackMarks = [];
+            renderCup();
+            playBlip(300 + currentCup.length * 90);
+            updateMessage(INGREDIENTS[key][1] + ' plopped in! 🎉');
+        }
+
+        /** Updates the instruction/feedback text. */
+        function updateMessage(text) {
+            getEl('msg').textContent = text;
+        }
+
+        /** Shakes the cup and plays a low sound to signal an invalid move. */
+        function triggerShake() {
+            const cupEl = getEl('cup');
+            cupEl.classList.remove('shake');
+            void cupEl.offsetWidth; // force reflow so the animation restarts
+            cupEl.classList.add('shake');
+            playBlip(150, 0.2);
+        }
+
+        // Tap a layer to remove it
+        getEl('cup').onclick = e => {
+            const layer = e.target.closest('.layer');
+            if (layer && !isLocked) {
+                currentCup.splice(Number(layer.dataset.index), 1);
+                feedbackMarks = [];
+                renderCup();
+                playBlip(200);
+            }
+        };
+
+        getEl('btn-clear').onclick = () => {
+            currentCup = [];
+            feedbackMarks = [];
+            renderCup();
+            updateMessage('Fresh cup! 🧁');
+        };
+
+        // ---------- Drag & drop (pointer events: mouse + touch) ----------
+        let ghostEl = null;
+
+        document.addEventListener('pointerdown', e => {
+            const target = e.target.closest('.ing');
+            if (!target) return;
+
+            e.preventDefault();
+            ghostEl = document.createElement('div');
+            ghostEl.className = 'ghost';
+            ghostEl.textContent = INGREDIENTS[target.dataset.key][0];
+            ghostEl.dataset.key = target.dataset.key;
+            document.body.appendChild(ghostEl);
+            updateGhostPosition(e);
+        });
+
+        /** Moves the dragged emoji and highlights the cup when hovering over it. */
+        function updateGhostPosition(e) {
+            if (!ghostEl) return;
+            ghostEl.style.left = e.clientX + 'px';
+            ghostEl.style.top = e.clientY + 'px';
+
+            const rect = getEl('cup').getBoundingClientRect();
+            const isOver = (
+                e.clientX > rect.left - 20 &&
+                e.clientX < rect.right + 20 &&
+                e.clientY > rect.top - 60 &&
+                e.clientY < rect.bottom + 20
+            );
+            getEl('cup').classList.toggle('over', isOver);
+        }
+
+        document.addEventListener('pointermove', updateGhostPosition);
+
+        document.addEventListener('pointerup', () => {
+            if (!ghostEl) return;
+
+            const isOver = getEl('cup').classList.contains('over');
+            getEl('cup').classList.remove('over');
+
+            const key = ghostEl.dataset.key;
+            ghostEl.remove();
+            ghostEl = null;
+
+            if (isOver) addIngredient(key);
+        });
+
+        // Double-click an ingredient as a fallback to dragging
+        getEl('bank').addEventListener('dblclick', e => {
+            const target = e.target.closest('.ing');
+            if (target) addIngredient(target.dataset.key);
+        });
+
+        // ---------- Checking the guess ----------
+        getEl('btn-check').onclick = () => {
+            if (isLocked) return;
+
+            if (currentCup.length < secretRecipe.length) {
+                updateMessage(`Grandma uses ${secretRecipe.length} ingredients — add more!`);
+                triggerShake();
+                return;
+            }
+
+            totalTries++;
+            feedbackMarks = currentCup.map(key => secretRecipe.includes(key) ? 'ok' : 'no');
+            const correctCount = feedbackMarks.filter(m => m === 'ok').length;
+            renderCup();
+
+            if (correctCount === secretRecipe.length && currentCup.length === secretRecipe.length) {
+                isLocked = true;
+                playBlip(660, 0.3);
+                setTimeout(() => playBlip(880, 0.4), 150);
+                createLeafShower();
+                setTimeout(showWinDialog, 900);
+            } else {
+                updateMessage(`${correctCount} of ${secretRecipe.length} are right! 🟢 = in Grandma's recipe, 🔴 = not. Tap red layers to swap them.`);
+                playBlip(250, 0.25);
+            }
+        };
+
+        /** Shows the win dialog with a prize and saves loyalty sign-ups to localStorage. */
+        function showWinDialog() {
+            const code = 'GOLD-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+            let prize = '15% off your parfait';
+            if (totalTries <= 2) prize = 'FREE Fall Parfait!';
+            else if (totalTries <= 4) prize = 'FREE coffee with any parfait';
+
+            getEl('win-content').innerHTML = `
+                <div style="font-size:2.5rem">🏆</div>
+                <h2 style="margin:0">You cracked it in ${totalTries} ${totalTries === 1 ? 'try' : 'tries'}!</h2>
+                <div class="coupon">
+                    You won:<big>${prize}</big>
+                    Code: <b>${code}</b>
+                </div>
+                <p style="margin:10px 0 0">Join Grandma's Loyalty Club to save your prize:</p>
+                <input id="user-name" placeholder="Your first name">
+                <input id="user-email" type="email" placeholder="Email">
+                <button class="big" id="btn-save">Save my prize 🎁</button>
+                <button class="big alt" id="btn-restart">Play again</button>
+            `;
+
+            getEl('dlg-win').showModal();
+
+            getEl('btn-save').onclick = () => {
+                const email = getEl('user-email').value.trim();
+                if (!/\S+@\S+\.\S+/.test(email)) {
+                    getEl('user-email').style.borderColor = '#d7263d';
+                    return;
+                }
+
+                try {
+                    const members = JSON.parse(localStorage.getItem('gb_members') || '[]');
+                    members.push({
+                        name: getEl('user-name').value,
+                        email: email,
+                        code: code,
+                        prize: prize,
+                        tries: totalTries,
+                        week: weekIndex
+                    });
+                    localStorage.setItem('gb_members', JSON.stringify(members));
+                } catch (e) {}
+
+                getEl('btn-save').textContent = 'Saved! See you at the bakery 🥧';
+                getEl('btn-save').disabled = true;
+            };
+
+            getEl('btn-restart').onclick = () => {
+                getEl('dlg-win').close();
+                currentCup = [];
+                feedbackMarks = [];
+                totalTries = 0;
+                isLocked = false;
+                renderCup();
+                updateMessage('New round! Same secret recipe this week 😉');
+            };
+        }
+
+        init();
+    </script>
+</body>
+</html>
