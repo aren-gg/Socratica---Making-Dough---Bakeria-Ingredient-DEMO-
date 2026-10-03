@@ -130,7 +130,7 @@
         .hero {
             position: relative;
             margin: 14px auto 8px;
-            width: 168px;
+            width: 230px;
         }
 
         .sale {
@@ -457,8 +457,8 @@
         }
         .left .card { background: transparent; border: 0; box-shadow: none; padding: 0; margin: 0; }
 
-        @media (min-width: 900px) {
-            .wrap {
+        /* three-column layout: JS adds body.wide when the visible area is wide enough */
+            body.wide .wrap {
                 max-width: 1240px;
                 min-height: 100vh;
                 display: grid;
@@ -472,46 +472,111 @@
                 align-items: stretch;
                 padding: 14px 28px 32px;
             }
-            .wrap > h1 { grid-area: title; margin: 0; }
-            .wrap > .card.left { grid-area: left; margin: 0; }
-            .wrap > .card:not(.left) { grid-area: stage; margin: 0; }
-            .wrap > .basket { grid-area: basket; margin: 0; }
+            body.wide .wrap > h1 { grid-area: title; margin: 0; }
+            body.wide .wrap > .card.left { grid-area: left; margin: 0; }
+            body.wide .wrap > .card:not(.left) { grid-area: stage; margin: 0; }
+            body.wide .wrap > .basket { grid-area: basket; margin: 0; }
 
             /* panels fill the same height and center their content */
-            .card.left {
+            body.wide .card.left {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: space-evenly;
             }
-            .wrap > .card:not(.left) {
+            body.wide .wrap > .card:not(.left) {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 justify-items: center;
                 align-content: space-evenly;
             }
-            .wrap > .card:not(.left) .stage, .wrap > .card:not(.left) #msg { grid-column: 1 / -1; }
-            .card.left .hero { margin: 0; width: fit-content; }
-            #heroimg { width: auto !important; height: clamp(120px, 30vh, 300px) !important; }
-            .card.left .card div { font-size: clamp(10px, 1.05vw, 14px) !important; line-height: 1.9; }
-            .stage { min-height: 0; }
-            .cup { height: clamp(170px, 42vh, 380px); }
-            #msg { min-height: 4.5em; font-size: clamp(10px, 0.95vw, 13px); }
+            body.wide .wrap > .card:not(.left) .stage, body.wide .wrap > .card:not(.left) #msg { grid-column: 1 / -1; }
+            body.wide .card.left .hero { margin: 0; width: fit-content; }
+            body.wide #heroimg { width: auto !important; height: clamp(120px, 30vh, 300px) !important; }
+            body.wide .card.left .card div { font-size: clamp(10px, 1.05vw, 14px) !important; line-height: 1.9; }
+            body.wide .stage { min-height: 0; }
+            body.wide .cup { height: clamp(170px, 42vh, 380px); }
+            body.wide #msg { min-height: 4.5em; font-size: clamp(10px, 0.95vw, 13px); }
 
             /* basket fills the column; handle floats above it */
-            .basket { position: relative; display: flex; flex-direction: column; }
-            #handle { position: absolute; bottom: calc(100% + 3px); left: 27%; width: 46%; height: auto; margin: 0; }
-            .items { flex: 1; display: flex; }
-            .bank { grid-template-columns: repeat(3, 1fr); width: 100%; align-content: space-evenly; }
+            body.wide .basket { position: relative; display: flex; flex-direction: column; }
+            body.wide #handle { position: absolute; bottom: calc(100% + 3px); left: 27%; width: 46%; height: auto; margin: 0; }
+            body.wide .items { flex: 1; display: flex; }
+            body.wide .bank { grid-template-columns: repeat(3, 1fr); width: 100%; align-content: space-evenly; }
+
+        /* ===== Side dock: edge tabs + slide-out panel (card, trophies, about) ===== */
+        body{transition:padding-right .25s steps(5)}
+        body.pushed{padding-right:486px}
+        .dock{position:fixed;top:0;right:0;height:100%;width:min(440px,92vw);z-index:60;transform:translateX(100%);transition:transform .25s steps(5)}
+        .dock.open{transform:none}
+        .tabs{position:absolute;right:100%;top:calc(10vh + env(safe-area-inset-top, 0px));display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+        .tab{writing-mode:vertical-rl;text-orientation:mixed;font:inherit;font-size:9px;padding:12px 8px;background:var(--acc);color:#fff;border:4px solid var(--line);border-right:0;cursor:pointer;box-shadow:-4px 4px 0 var(--line)}
+        .tab:hover{filter:brightness(1.08)}
+        .tab[aria-expanded="true"]{background:var(--red);padding-right:12px}
+        .tab:focus-visible,.dclose:focus-visible,button.big:focus-visible{outline:4px solid var(--ink);outline-offset:2px}
+        .dpanel{height:100%;overflow-y:auto;background:linear-gradient(var(--bg),var(--bg2));border-left:6px solid var(--line);padding:16px 14px 40px;text-align:center}
+        .dpanel section[hidden]{display:none}
+        .dclose{float:right;font:inherit;font-size:9px;padding:6px 8px;background:var(--card);color:var(--ink);border:3px solid var(--line);cursor:pointer;box-shadow:3px 3px 0 var(--line)}
+        .dpanel h2{clear:both;margin:14px 0 0;font-size:13px;line-height:1.6;color:var(--acc);text-shadow:2px 2px 0 var(--line);font-weight:400;letter-spacing:1px}
+        .lc{border:6px solid var(--line);box-shadow:6px 6px 0 var(--line);margin:14px 0;background:var(--card);color:#4a2c1a}
+        .lc-head{background:var(--acc);color:#fff;padding:12px 8px;border-bottom:6px solid var(--line);font-size:11px;line-height:1.7}
+        .lc-name{display:inline-block;margin-top:6px;background:#fff;color:#4a2c1a;padding:2px 8px;border:3px solid var(--line);font-size:9px}
+        .lc-body{padding:12px;background:conic-gradient(#fff6e3 25%,#ffeccb 0 50%,#fff6e3 0 75%,#ffeccb 0) 0 0/16px 16px}
+        .slots{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+        .slot{aspect-ratio:1;border:4px dashed #b9803f;background:#fff;display:flex;align-items:center;justify-content:center;position:relative;color:#c9a27a;overflow:hidden}
+        .slot.on{border:4px solid var(--line);background:#ffe3b8}
+        .slot.prize{border-color:var(--red);color:var(--red)}
+        .slot small{font-size:6px;line-height:1.5}
+        .slot .num{position:absolute;top:1px;left:3px;font-style:normal;font-size:7px;opacity:.7}
+        .slot img.st{width:62%;height:auto;animation:stamp .3s steps(3)}
+        .slot img.mk{width:46%;height:auto;animation:mkbob .8s steps(2) infinite}
+        @keyframes stamp{0%{transform:scale(1.8);opacity:0}100%{transform:none;opacity:1}}
+        @keyframes mkbob{50%{transform:translateY(-5px)}}
+        .lc-msg{margin-top:12px;font-size:9px;line-height:1.8}
+        .prizes .pz,.newtr .pz{border:3px dashed var(--red);background:#fff;color:#4a2c1a;margin:8px 0 0;padding:6px;font-size:8px;line-height:1.6}
+        @media(max-width:640px){.wrap{padding-right:46px}}
+
+        /* ===== Grandma's speech bubble ===== */
+        .brand:focus-visible{outline:4px solid var(--ink);outline-offset:6px}
+        .say{display:none;position:absolute;top:calc(100% + 20px);left:0;width:230px;max-width:calc(100vw - 40px);background:#fff;color:#4a2c1a;border:4px solid var(--line);box-shadow:4px 4px 0 var(--line);padding:10px;font-size:9px;line-height:1.8;text-align:left;cursor:default}
+        .say::before{content:"";position:absolute;top:-12px;left:24px;width:16px;height:16px;background:#fff;border:4px solid var(--line);border-right:0;border-bottom:0;transform:rotate(45deg)}
+        .brand.talk .say{display:block}
+
+        /* ===== Trophies ===== */
+        .tcount{font-size:9px;line-height:1.8;margin:10px 0 0}
+        .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+        .tr{border:4px dashed #b9803f;background:#fff;color:#4a2c1a;padding:8px 4px 10px;font-size:7px;line-height:1.6}
+        .tr.on{border:4px solid var(--line);background:#ffe3b8;box-shadow:3px 3px 0 var(--line)}
+        .tr .ico{height:44px;display:flex;align-items:center;justify-content:center}
+        .tr:not(.on) .ico img{filter:grayscale(1) brightness(.55);opacity:.45}
+        .tr.on .ico img{animation:mkbob 1.2s steps(2) infinite}
+        .tr b{display:block;font-weight:400;font-size:8px;line-height:1.5;margin:6px 0 4px}
+        .tr:not(.on) b{opacity:.75}
+
+        .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);z-index:120;background:var(--card);color:var(--ink);border:4px solid var(--line);box-shadow:4px 4px 0 var(--line);padding:10px 14px;font-size:9px;line-height:1.7;display:flex;gap:12px;align-items:center;text-align:left;max-width:92vw;animation:toastin .3s steps(3)}
+        @keyframes toastin{0%{transform:translate(-50%,40px);opacity:0}100%{transform:translateX(-50%);opacity:1}}
+
+        /* ===== About us ===== */
+        .about{margin-top:14px}
+        .about .card{text-align:left;font-size:9px;line-height:2}
+        .about .card h3{margin:0 0 6px;font-size:10px;font-weight:400;line-height:1.6;color:var(--red)}
+        .about .card p{margin:0 0 10px}
+        .about .card p:last-child{margin-bottom:0}
+        .about ul{margin:0;padding-left:16px}
+        .about li{margin:0 0 4px}
+
+        @media (prefers-reduced-motion: reduce){
+            *{animation:none !important;transition:none !important}
         }
     </style>
 </head>
 <body>
 
     <!-- Header & Logo -->
-    <div class="brand" title="Grandma's Bakeria">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAYAAAAUg66AAAAWfmNhQlgAABZ+anVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAAFlhqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOjliMzIxOTU3LWQ4ZTYtNDU5NC1hNTAxLTM5MGE0YmU0NGNhOQAAAAOTanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAAAuGp1bWIAAABEanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5pbmdyZWRpZW50LnYzAAAAABhjMnNo6uEoJ+elg40F0pHFhkidXAAAAGxjYm9yo2lkYzpmb3JtYXRpaW1hZ2UvcG5namluc3RhbmNlSUR4LHhtcDppaWQ6ZTU3MmYxNTEtZTkwNS00ZDNiLTg4ZmMtYWQxNDYwYWNhODYzbHJlbGF0aW9uc2hpcGhwYXJlbnRPZgAAAeJqdW1iAAAAQWp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuYWN0aW9ucy52MgAAAAAYYzJzaE3n/s+0DRysqIwvkEYTh2EAAAGZY2JvcqJnYWN0aW9uc4KiZmFjdGlvbmtjMnBhLm9wZW5lZGpwYXJhbWV0ZXJzoWtpbmdyZWRpZW50c4GiY3VybHgtc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5pbmdyZWRpZW50LnYzZGhhc2hYIH1x/OTGa2IJHVvipkZWsjlLhmFb6j4MrK9Yk44E7VzTpGZhY3Rpb254HWNvbS5hbnRocm9waWMuY2xhdWRlLnByb3ZpZGVkanBhcmFtZXRlcnOheB9jb20uYW50aHJvcGljLm9yaWdpbi1jb25maWRlbmNlZ3Vua25vd25rZGVzY3JpcHRpb254ZkNsYXVkZSBwcm92aWRlZCB0aGlzIGZpbGUgYXQgdGhlIHJlcXVlc3Qgb2YgYSB1c2VyIGFuZCBtYXkgaGF2ZSBjcmVhdGVkIG9yIG1vZGlmaWVkIHRoZSBmaWxlIGNvbnRlbnRzLm1zb2Z0d2FyZUFnZW50oWRuYW1lZkNsYXVkZXJhbGxBY3Rpb25zSW5jbHVkZWT1AAAAyGp1bWIAAABAanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5oYXNoLmRhdGEAAAAAGGMyc2i0XBwOmdszvFOq9Hbqtf01AAAAgGNib3KlY2FsZ2ZzaGEyNTZjcGFkTQAAAAAAAAAAAAAAAABkaGFzaFgghwgeCOeph7sj4DLHwsq8Q6yItHmWbF+o19IMt9kqi1lkbmFtZW5qdW1iZiBtYW5pZmVzdGpleGNsdXNpb25zgaJlc3RhcnQYIWZsZW5ndGgZFooAAAI+anVtYgAAACdqdW1kYzJjbAARABCAAACqADibcQNjMnBhLmNsYWltLnYyAAAAAg9jYm9ypWNhbGdmc2hhMjU2aXNpZ25hdHVyZXhNc2VsZiNqdW1iZj0vYzJwYS91cm46YzJwYTo5YjMyMTk1Ny1kOGU2LTQ1OTQtYTUwMS0zOTBhNGJlNDRjYTkvYzJwYS5zaWduYXR1cmVqaW5zdGFuY2VJRHgseG1wOmlpZDo1YzQ2ZDAwMi0zMjRiLTQ0ZTUtYjc2MC1lNzJlMzA3MjI0YmFyY3JlYXRlZF9hc3NlcnRpb25zg6JjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggfXH85MZrYgkdW+KmRlayOUuGYVvqPgysr1iTjgTtXNOiY3VybHgqc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5hY3Rpb25zLnYyZGhhc2hYIAPJKtm+TQgZRfwyeFZewYfdE41lQvgupSEEqC6wn3HgomN1cmx4KXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaGFzaC5kYXRhZGhhc2hYIE01/t6kos8gSJlJeNeb6oTSDhjp5EVemcpVSq63hoNMdGNsYWltX2dlbmVyYXRvcl9pbmZvo2RuYW1lb0FudGhyb3BpYyBGaWxlc2d2ZXJzaW9uZTEuMC4wa3NwZWNWZXJzaW9uZTIuNC4wAAAQOGp1bWIAAAAoanVtZGMyY3MAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAQCGNib3LShFkCEqIBJhghWQIKMIICBjCCAY2gAwIBAgIUQOWgCu7COdC+uIP6BkIFPWdVEwAwCgYIKoZIzj0EAwMwSTEXMBUGA1UEChMOQW50aHJvcGljLCBQQkMxLjAsBgNVBAMTJUFudGhyb3BpYyBDb250ZW50IENyZWRlbnRpYWxzIFJvb3QgQ0EwHhcNMjYwODA3MTg0MzU2WhcNMjgwODA2MTk0MzU2WjBEMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEpMCcGA1UEAxMgQW50aHJvcGljIENsYXVkZSBDb250ZW50IFNpZ25pbmcwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASYegpry1AYBRTVNL1CpTlbROnY3dey+UrsF9C3phYrATN3ZHf93Mo8RQN0KOUuOn19P4oWNFWe5n2/She9N7eTo1gwVjAOBgNVHQ8BAf8EBAMCB4AwFQYDVR0lBA4wDAYKKwYBBAGD6F4CATAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFM5R4gSBTmRbI/jjxM+aPpzB11zCMAoGCCqGSM49BAMDA2cAMGQCMDFzHRSeAXrSy1WOzkbhPZ6Km2wGTmZ/2gK18k8BQGXyqz88Rdrz6CTX9flAnYNVxgIwcF9c3fVhqmJKpi+UhasNUMko69cyX6STPfta3Q8EjyzDjzoyrol46FP6VFHhvUcJoWNwYWRZDZ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2WEBwqkA1D/bLwRhJ7BO0YPqJ8WF5lp20d2Wk/JjM57iECRsBode5DJ/JbpFe6Qdljc9rk2ofhArZXRTZ5hQy2T35DGgJuQAABbxJREFUeJzt3bGrllUAx3ENCZqkJcggWqICmwRR2hoaFKf+AYdAcK8/ovZAaHBqcxIdGtrCEJwSKloi6AYt4RS02NptuLfTved+z3Pfz2d+uJ7r+94vZ/nxnDkDAAAAAAAAAAAAAAAAwOrO1gdgrmsXLzyvz3AUD5/u+Y6eYi/UBwB2lwABGQECMgIEZAQIyAgQkBEgICNAQEaAgIwAARkBAjJ2Nsdste3VF/e/ro9wJB/deL8+wj62acfLDQjICBCQESAgI0BARoCAjAABGQECMgIEZAQIyAgQkBEgIGPXcojRbdfs7dWTx4+Gnr90+eqkk5yM1X7f0W2a7djB3ICAjAABGQECMgIEZAQIyAgQkBEgICNAQEaAgIwAARkBAjLn6gMwZnTrtNqWarXz0HIDAjICBGQECMgIEJARICAjQEBGgICMAAEZAQIyAgRkBAjIeGfRMVvtPWIczHu+Wm5AQEaAgIwAARkBAjICBGQECMgIEJARICAjQEBGgICMAAEZu5ZDjG674J9sxw7mBgRkBAjICBCQESAgI0BARoCAjAABGQECMgIEZAQIyAgQkNn8TmX2Vst7uziK0feOjdr61swNCMgIEJARICAjQEBGgICMAAEZAQIyAgRkBAjICBCQESAgs9yOZHTbtfWt1pPHj4aev3T56qSTnA679v85ujVbbTvmBgRkBAjICBCQESAgI0BARoCAjAABGQECMgIEZAQIyAgQkJm+C9n6tuvVv36qj7DPs5+/H3r+/BvvTDrJydj67/vbi2/WR9hnte2YGxCQESAgI0BARoCAjAABGQECMgIEZAQIyAgQkBEgICNAQOZcfYCTttq2a9RqW6fZtv77jn7fVtuOzeYGBGQECMgIEJARICAjQEBGgICMAAEZAQIyAgRkBAjICBCQ2fwWbHRrc/3DW5NOsqYH9+7URzgSn9fBtr4dcwMCMgIEZAQIyAgQkBEgICNAQEaAgIwAARkBAjICBGQECMhsfgs224Pvfq2PsM/1d18be37XtlQb/7x2jRsQkBEgICNAQEaAgIwAARkBAjICBGQECMgIEJARICAjQEDGFuyYjW5/Zm+XvBfskJ+/2Oe1a9yAgIwAARkBAjICBGQECMgIEJARICAjQEBGgICMAAEZAQIytmCHmP1eJ++NOl4+r21xAwIyAgRkBAjICBCQESAgI0BARoCAjAABGQECMgIEZAQIyOzcFuzLKzen/vzzH1+d+vN3zWrvNXv22aP6CKeKGxCQESAgI0BARoCAjAABGQECMgIEZAQIyAgQkBEgICNAQGbntmBb32r9cOPToeffvv/JpJOcjNV+361/f1bjBgRkBAjICBCQESAgI0BARoCAjAABGQECMgIEZAQIyAgQkNm5LdjWjW6dRrdUq9n6lo2DuQEBGQECMgIEZAQIyAgQkBEgICNAQEaAgIwAARkBAjICBGTO1gf4t2sXLzwfef7BvTuzjgLLu/7hraHnHz7dW+pv3g0IyAgQkBEgICNAQEaAgIwAARkBAjICBGQECMgIEJARICCz1C7k/xjdjsFpstq2a5QbEJARICAjQEBGgICMAAEZAQIyAgRkBAjICBCQESAgI0BA5tzsf2D2VuvzKy/P/PHLeeXmhaHnX3rvq0knORl/fvPB0PO/392bdJI13T5zZurf1+ytmRsQkBEgICNAQEaAgIwAARkBAjICBGQECMgIEJARICAjQEBmeOcxuu3ata3Walbbjtl2bcvtb/8Yen50O+YGBGQECMgIEJARICAjQEBGgICMAAEZAQIyAgRkBAjICBCQmf5esNl+/GVsq/LW67u1TRveUt29OOcg/Ce79n12AwIyAgRkBAjICBCQESAgI0BARoCAjAABGQECMgIEZAQIyEzfgo2+V2i6vcXOA0ex8e+zGxCQESAgI0BARoCAjAABGQECMgIEZAQIyAgQkBEgICNAQOZvrBq2Gp8uEtQAAAAASUVORK5CYII=" alt="Grandma's Bakeria logo">
-</div>
+    <div class="brand" id="brand" tabindex="0" role="button" aria-label="Grandma's Bakeria - hover for a message from Grandma" aria-describedby="gsay">
+        <img class="px" id="logo" alt="">
+        <div class="say" id="gsay" role="tooltip"></div>
+    </div>
 
     <div class="wrap">
         <h1>GRANDMA'S<br>FALL PARFAIT</h1>
@@ -559,6 +624,61 @@
         </div>
     </div>
 
+    <!-- Side dock: edge tabs open the loyalty card, trophies, or about us -->
+    <div class="dock" id="dock">
+        <div class="tabs">
+            <button class="tab" id="t-card" data-v="card" aria-expanded="false" aria-controls="dpanel">MY CARD 0/10</button>
+            <button class="tab" id="t-tr" data-v="trophies" aria-expanded="false" aria-controls="dpanel">TROPHIES 0/10</button>
+            <button class="tab" id="t-ab" data-v="about" aria-expanded="false" aria-controls="dpanel">ABOUT US</button>
+        </div>
+        <div class="dpanel" id="dpanel">
+            <button class="dclose" id="dclose">CLOSE X</button>
+
+            <!-- Loyalty card -->
+            <section data-v="card">
+                <h2>GRANDMA'S<br>LOYALTY CARD</h2>
+                <div class="lc">
+                    <div class="lc-head">COLLECT 10 STAMPS<br><span id="lc-name" class="lc-name">GUEST</span></div>
+                    <div class="lc-body">
+                        <div class="slots" id="slots"></div>
+                        <div id="lc-msg" class="lc-msg"></div>
+                        <button class="big" id="lc-redeem" style="display:none">I REDEEMED IT - NEW CARD</button>
+                    </div>
+                </div>
+                <div class="card"><div style="font-size:10px">YOUR PRIZES</div><div id="lc-prizes" class="prizes"></div></div>
+                <button class="big alt" id="lc-demo" style="font-size:8px">DEMO: +1 STAMP</button>
+            </section>
+
+            <!-- Trophies -->
+            <section data-v="trophies" hidden>
+                <h2>TROPHY<br>SHELF</h2>
+                <div class="tcount" id="tr-count"></div>
+                <div class="tgrid" id="tr-grid"></div>
+            </section>
+
+            <!-- About us -->
+            <section data-v="about" class="about" hidden>
+                <h2>ABOUT US</h2>
+                <div class="card" style="margin-top:14px">
+                    <h3>GRANDMA'S BAKERIA</h3>
+                    <p>We are a small family bakery. Everything comes from Grandma's handwritten recipe cards, baked in small batches with simple ingredients.</p>
+                    <p>Every fall, her Fall Parfait comes back to the counter. Its recipe changes every week, and this game is how you guess it.</p>
+                </div>
+                <div class="card">
+                    <h3>HOW IT WORKS</h3>
+                    <ul>
+                        <li>Fill the cup with the 5 ingredients you think Grandma used.</li>
+                        <li>Taste it. Green layers are in the recipe, red ones are not.</li>
+                        <li>Crack it in 2 tries or fewer: free parfait.</li>
+                        <li>3 or 4 tries: free coffee with any parfait.</li>
+                        <li>5 or more tries: 15% off your parfait.</li>
+                        <li>Each win earns a loyalty stamp. 10 stamps is a free parfait.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+
     <!-- Win State Dialog -->
     <dialog id="dlg">
         <div id="win"></div>
@@ -589,13 +709,18 @@
             banana: [".......kk.","......knk.",".....knnk.","....knnnk.","...knnnnk.",".kknnnnk..","knnnnnkk..",".kkkkk...."],
             berry: ["...gggg...","..kkggkk..",".kppppppk.","kpprpppppk","kppppprppk",".kpprpppk.","..kppppk..","...kppk...","....kk...."],
             cheese: ["......kkk.","...kkkllk.",".kkllllllk","klllldllk.","kllllllllk","kllldlllld","kkkkkkkkkk"],
-            parfait: ["......gg......",".....krrk.....","....kkwwkk....","...kwwwwwwk...","..kwwwwwwwwk..",".kwwwwwwwwwwk.",".kkkkkkkkkkkk.",".kcccccccccck.",".koooooooooook.",".kttttttttttk.",".kcccccccccck.",".koooooooooook.","..kccccccccck.","...kcccccck...",".....kwwk.....",".....kwwk.....","...kkkkkkkk..."]
+            marker: ["...kkk...","...krk...","...krk...","kkkkrkkkk","krrrrrrrk",".krrrrrk.","..krrrk..","...krk...","....k...."],
+            trophy: ["kkkkkkkkkk","klllyyyydk","klllyyyydk",".klyyyydk.","..kyyyydk.","...kyydk..","....kk....","...kddk...","..kddddk..","..kkkkkk.."],
+            parfait: ["......gg......",".....krrk.....","....kkwwkk....","...kwwwwwwk...","..kwwwwwwwwk..",".kwwwwwwwwwwk.",".kkkkkkkkkkkk.",".kcccccccccck.",".kooooooooook.",".kttttttttttk.",".kcccccccccck.",".kooooooooook.","..kccccccccck.","...kcccccck...",".....kwwk.....",".....kwwk.....","...kkkkkkkk..."]
         };
         const cache = {};
+        /* the new fall parfait artwork (46x52 pixel grid, transparent background) */
+        const PARFAIT_PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAA2CAYAAACBWxqaAAAFTklEQVR42u1ZT0wcZRT/LS4Nq5uNWJBlR9l0pVOsCzWYXQ56kMNmE5ouxDQ0XTlgGpNCD3DoiWCpJXryIIcWL0YOBBOCCpI2pRy82ENnEyIVLFkICJXNxsVCNtMUocl4mP2+zswOOzO7s1Mxvgs735/3fr/vve+9NwNgkbT4PUIx9JZYBf7tmleLQqLEKvDFEpsV4H/Z+BMAcGshYTs0BKTgiwHc8jtwqEKoxe8RrvCVsrFrzlRRPFFiBfimyVHcjFz892chNfAAgPEfAABX+ErTSdituAP3xr7Dob7ExRTTPXDNmcIHKafq3PeVfM7wy+eS2wqNeenzjctBAIA3OoKvXw/K1l54yGF9rBPe6AhON57M0nXjchDdX3CGM5W9EOA3536jY+tjnbhzZxk1Lz8F0IkLDznZnvWxTixxDwB0oq2hHB+P3FWZs6Agtfg9grC3I/w+0iYIezv09+3uE/T5dveJA+dzzRH9RQmhFr9HkJ74TG8T6oJvAgCWuAcIf3lPtj7XvHTu7+1tsJemZHtPN57UHUo2veEycHSXjgVnVymQY8fdMgDx661gL02BC/mw/ZZYE8oXU3QPmZ/pbaJ7CDku5KNjn/5VpqsBtGuBJ8C9ATcdJ4bCs6uY6W0CK9mztpzETsiHeaYakRfFaFjP7AnOrmJtOQlWAjp+vZXqk9oYiCXFHxrZSVcd8AbccLAMHCyDqv4JeANuzDPVAIBjx92yteWLKQBAxCOgqn8CDpah67mQL2v92rIIdJ6ppjbInoIKGTl9At7VPgRX+xDS4z1wsAwiHgFcyEcBYGuB7q378B04WAbp8R4AQFX/BM697wEAsOc+k60vX0zBG3DTeSKExMDR3Zzth2YadbAMAODJ/VEAQGldAPtLMVT1T2C99T0xFLYWgAq/GCZTP8vWE3G1D8EbPwvufATBb38EKvyUBLFRWheg6/eXYuI4CaVCQogodjR00GdyugS81APp8R66lpAhngPwbH2Fn5KT2nA0dMjIGCYgDZ8sj0iAeQNucOcjMjDp8R6U1gVUPeBqH5KR5kI+eANuehiOhg48uT8q26sVRnat8JGehFQxHY8lszygJExA7S/F5B5Q2FCSltkwoxuVnr5cXgAqTqmuU4JSW6+t32Aha/F7hL6uNtSHo3DVnHqu7XJ6Yx6/zozh8+FJ1aKm3cytTIt/3Y2Ak7EG9cq0aC85BxypMbEbJWRySe2ZwnWY2k7LAM2ZQzIj/KM/4HzltYNt1jLAxrxJHuA3s06X54bhDHYZIyDR4dSypyNkC3qlzAKvJ4Ssfife/ekT+rusedASUFKbeOOsOR4oC1yUKz5onQZJPTqovdhXhXuAAuI3jZ+eQp6+5NF1YmXNgwC/ibLmQeyZdomdjK4Q4rlh2B8n1I09ThyoIysh6Kw5xrJQRqlq9sl1sfNJCDqzkHYvtDKdlRrzBWm4YOqoKZoeSB+pgWtvQyzregqZWZU4OYe0RhuR86tEVkPHb2ZIWCC1ZwB+E+lHWzkbuZweuLWQsGF4UugDUB/OvJToKVIGKnGuDhSAJnjd34X6utoAAPXhqEikSC22FDgATfC67gDxBAD0ZcaIR2SvjAZJpVXyuxS4no9ahr9OS99LiVdASUUNESBgiRDQeoHnReAgMkpC9eEoXB5WfuKJuAy0FLBR0KZ0o1kGSZgpPKMUI+FRVAKF/rNOuT9fQrZ8DWudtFHJ1zN2o+CVKRWALN7vfnMV7350VXW/ci6diD+7Q5JQLMolllZmJWhTakCGjJ7iVVAa1fJAPqCNFq//1B2wPa8spJmW/5dDIv8AfIumf+NNemcAAAAASUVORK5CYII=';
 
         /** Generates an image data URL from the sprite strings **/
         function spr(k) {
             if (cache[k]) return cache[k];
+            if (k === 'parfait') return cache[k] = { u: PARFAIT_PNG, w: 48, h: 54 };
             const rows = SPR[k];
             const isBig = k === 'parfait';
             const width0 = Math.max(...rows.map(r => r.length));
@@ -634,9 +759,12 @@
             const o = spr('parfait');
             const h = document.getElementById('heroimg');
             h.src = o.u;
-            h.style.width = o.w * 12 + 'px';
-            h.style.height = o.h * 12 + 'px';
+            h.style.width = o.w * 5 + 'px';
+            h.style.height = o.h * 5 + 'px';
         })();
+
+        // Logo badge: Grandma
+        document.getElementById('logo').src = 'data:image/png;base64,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';
 
         // Render Basket Handle (rope-style arch)
         (function() {
@@ -688,6 +816,68 @@
         let sound = true;
 
         const $ = id => document.getElementById(id);
+
+        /* --- Trophies (saved in this browser's localStorage) --- */
+        const TROPHIES = [
+            { id: 'first',  n: 'FIRST TASTE',     d: "Crack Grandma's recipe once" },
+            { id: 'one',    n: 'MIND READER',     d: 'Win in 1 try' },
+            { id: 'sharp',  n: 'SHARP PALATE',    d: 'Win in 2 tries or fewer' },
+            { id: 'grit',   n: 'NEVER QUIT',      d: 'Win after 6 or more tries' },
+            { id: 'close',  n: 'SO CLOSE',        d: 'Taste a cup that is one ingredient off' },
+            { id: 'cheese', n: 'CHEESE?!',        d: 'Dare to drop the cheese in the cup' },
+            { id: 'reg',    n: 'REGULAR',         d: 'Win 3 times' },
+            { id: 'pro',    n: 'PARFAIT PRO',     d: 'Win 10 times' },
+            { id: 's5',     n: 'STAMP COLLECTOR', d: 'Reach 5 loyalty stamps' },
+            { id: 's10',    n: 'FULL CARD',       d: 'Fill all 10 stamps' }
+        ];
+        let memTr = {}, memWins = 0;
+
+        function getTr() {
+            try { return JSON.parse(localStorage.getItem('gb_trophies') || '{}'); } catch (e) { return memTr; }
+        }
+        function addWin() {
+            try {
+                const w = (+localStorage.getItem('gb_wins') || 0) + 1;
+                localStorage.setItem('gb_wins', w);
+                memWins = w;
+                return w;
+            } catch (e) { return ++memWins; }
+        }
+        function toast(text) {
+            const old = document.querySelector('.toast');
+            if (old) old.remove();
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.setAttribute('role', 'status');
+            t.innerHTML = `${imgTag('trophy', 3)}<span>TROPHY UNLOCKED!<br>${text}</span>`;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3200);
+        }
+        /** Unlock a trophy once. Shows in the win dialog if it is open, otherwise as a toast. **/
+        function award(id) {
+            const t = getTr();
+            if (t[id]) return false;
+            t[id] = 1;
+            memTr = t;
+            try { localStorage.setItem('gb_trophies', JSON.stringify(t)); } catch (e) {}
+            const info = TROPHIES.find(x => x.id === id);
+            const box = $('newtr');
+            if ($('dlg').open && box) box.insertAdjacentHTML('beforeend', `<div class="pz">NEW TROPHY: ${info.n}</div>`);
+            else toast(info.n);
+            renderTrophies();
+            return true;
+        }
+        function renderTrophies() {
+            const t = getTr();
+            const got = TROPHIES.filter(x => t[x.id]).length;
+            $('t-tr').textContent = `TROPHIES ${got}/${TROPHIES.length}`;
+            $('tr-count').textContent = `${got} OF ${TROPHIES.length} UNLOCKED`;
+            $('tr-grid').innerHTML = TROPHIES.map(x => `
+                <div class="tr${t[x.id] ? ' on' : ''}">
+                    <div class="ico">${imgTag('trophy', 4)}</div>
+                    <b>${x.n}</b>${x.d}
+                </div>`).join('');
+        }
 
         $('n').textContent = secret.length;
         $('bank').innerHTML = Object.entries(ING).map(([k, v]) =>
@@ -753,9 +943,10 @@
             }
             cup.push(key);
             marks = [];
-draw();
+            draw();
             blip(300 + cup.length * 90);
             msg(ING[key][0] + ' plopped in!');
+            if (key === 'cheese') award('cheese');
         }
 
         function msg(text) { $('msg').textContent = text; }
@@ -863,8 +1054,19 @@ draw();
             } else {
                 msg(`${correctCount} of ${secret.length} are right! Green = in Grandma's recipe, red = not. Tap red layers to swap them.`);
                 blip(250, .25);
+                if (correctCount == secret.length - 1) award('close');
             }
         };
+
+        /** Start a fresh round (same secret recipe) **/
+        function resetRound() {
+            cup = [];
+            marks = [];
+            tries = 0;
+            locked = false;
+            draw();
+            msg('New round! Same secret recipe this week');
+        }
 
         /** End Game UI **/
         function showWinnerDialog() {
@@ -873,19 +1075,30 @@ draw();
                               tries <= 4 ? 'FREE coffee with any parfait' : '15% off your parfait';
 
             $('win').innerHTML = `
-                <div style="margin-bottom:6px">${imgTag('parfait', 5)}</div>
+                <div style="margin-bottom:6px">${imgTag('parfait', 3)}</div>
                 <h2 style="margin:0">You cracked it in ${tries} ${tries == 1 ? 'try' : 'tries'}!</h2>
                 <div class="coupon">
                     You won:<big>${prizeText}</big>Code: <b>${couponCode}</b>
                 </div>
+                <div id="newtr" class="newtr"></div>
                 <p style="margin:10px 0 0;font-size:9px">Join Grandma's Loyalty Club to save your prize:</p>
                 <input id="nm" placeholder="Your first name">
                 <input id="em" type="email" placeholder="Email">
                 <button class="big" id="sv">SAVE MY PRIZE</button>
                 <button class="big alt" id="ag">PLAY AGAIN</button>
+                <button class="big alt" id="vc" style="display:none">VIEW MY CARD</button>
             `;
 
             $('dlg').showModal();
+
+            // Trophies earned by this win
+            const wins = addWin();
+            award('first');
+            if (tries === 1) award('one');
+            if (tries <= 2) award('sharp');
+            if (tries >= 6) award('grit');
+            if (wins >= 3) award('reg');
+            if (wins >= 10) award('pro');
 
             $('sv').onclick = () => {
                 const email = $('em').value.trim();
@@ -905,23 +1118,143 @@ draw();
                     });
                     localStorage.setItem('gb_members', JSON.stringify(members));
                 } catch (e) {}
-                $('sv').textContent = 'SAVED! SEE YOU AT THE BAKERY';
+                $('sv').textContent = addStamp($('nm').value) ? 'SAVED! +1 STAMP' : 'SAVED! (CARD IS FULL)';
                 $('sv').disabled = true;
+                $('vc').style.display = 'inline-block';
+                $('vc').onclick = () => { $('ag').click(); showPanel('card'); };
             };
 
             $('ag').onclick = () => {
                 $('dlg').close();
-                cup = [];
-                marks = [];
-                tries = 0;
-                locked = false;
-                draw();
-                msg('New round! Same secret recipe this week');
+                resetRound();
             };
         }
 
+        // If the dialog is dismissed with Esc, don't leave the game locked
+        $('dlg').addEventListener('close', () => { if (locked) resetRound(); });
+
+
+        /* --- Loyalty card (stamps saved in this browser's localStorage) --- */
+        const GOAL = 10;
+        let memStamps = 0;
+        function stamps() { try { return Math.min(GOAL, +localStorage.getItem('gb_stamps') || 0); } catch (e) { return memStamps; } }
+        function setStamps(n) { memStamps = n; try { localStorage.setItem('gb_stamps', n); } catch (e) {} }
+        function addStamp(name) {
+            if (name && name.trim()) { try { localStorage.setItem('gb_name', name.trim()); } catch (e) {} }
+            const n = stamps();
+            if (n >= GOAL) { renderCard(); return false; }
+            setStamps(n + 1); renderCard();
+            if (n + 1 >= 5) award('s5');
+            if (n + 1 >= GOAL) award('s10');
+            return true;
+        }
+
+        /* --- Side dock: card / trophies / about --- */
+        let view = 'card';
+        const PUSH_MIN = 760;   // below this width the panel overlays the game instead
+        const PUSH_W = 486;     // panel (440) + edge tabs
+        /** Shift the game aside while the panel is open and pick the layout that fits what's left **/
+        function layout() {
+            const open = $('dock').classList.contains('open');
+            const push = open && window.innerWidth >= PUSH_MIN;
+            document.body.classList.toggle('pushed', push);
+            const avail = window.innerWidth - (push ? PUSH_W : 0);
+            document.body.classList.toggle('wide', avail >= 900);
+        }
+        window.addEventListener('resize', layout);
+        function showPanel(v) {
+            view = v;
+            document.querySelectorAll('#dpanel section').forEach(s => { s.hidden = s.dataset.v !== v; });
+            document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-expanded', t.dataset.v === v));
+            $('dock').classList.add('open');
+            layout();
+            $('dpanel').scrollTop = 0;
+            renderCard();
+            renderTrophies();
+        }
+        function closeDock() {
+            $('dock').classList.remove('open');
+            document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-expanded', 'false'));
+            layout();
+        }
+        document.querySelectorAll('.tab').forEach(t => {
+            t.onclick = () => {
+                if ($('dock').classList.contains('open') && view === t.dataset.v) closeDock();
+                else showPanel(t.dataset.v);
+            };
+        });
+        $('dclose').onclick = closeDock;
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDock(); });
+
+        function renderCard() {
+            const n = stamps();
+            let nm = ''; try { nm = localStorage.getItem('gb_name') || ''; } catch (e) {}
+            $('lc-name').textContent = nm ? nm.toUpperCase().slice(0, 16) : 'GUEST';
+            $('slots').innerHTML = Array.from({ length: GOAL }, (_, i) => {
+                const on = i < n, next = i == n && n < GOAL, prize = i == GOAL - 1;
+                const inner = on ? `<img class="px st" alt="stamp" src="${spr('parfait').u}">`
+                    : next ? `<img class="px mk" alt="next stamp goes here" src="${spr('marker').u}">`
+                    : prize ? '<small>FREE<br>PARFAIT</small>' : '';
+                return `<div class="slot${on ? ' on' : ''}${prize ? ' prize' : ''}"><i class="num">${i + 1}</i>${inner}</div>`;
+            }).join('');
+            $('lc-msg').textContent = n >= GOAL ? 'CARD FULL! SHOW IT AT THE COUNTER FOR YOUR FREE PARFAIT!'
+                : `${n} OF ${GOAL} STAMPS - ${GOAL - n} MORE FOR A FREE PARFAIT!`;
+            $('lc-redeem').style.display = n >= GOAL ? 'inline-block' : 'none';
+            $('t-card').textContent = 'MY CARD ' + n + '/' + GOAL;
+            let L = []; try { L = JSON.parse(localStorage.getItem('gb_members') || '[]'); } catch (e) {}
+            $('lc-prizes').innerHTML = L.length
+                ? L.slice(-3).reverse().map(m => `<div class="pz">${m.prize}<br><b>${m.code}</b></div>`).join('')
+                : '<div class="pz">NO PRIZES YET - WIN THE GAME!</div>';
+        }
+        $('lc-redeem').onclick = () => { setStamps(0); renderCard(); };
+        $('lc-demo').onclick = () => addStamp('');
+
+
+        /* --- Grandma talks when hovered, focused, or tapped --- */
+        const GRANDMA_SAYS = [
+            "Hello, dear! Take your time, there's no rush.",
+            "I believe in you, sweetheart!",
+            "Every guess gets you closer. Keep going!",
+            "Oh, you have a good eye for flavors.",
+            "Don't fret over a red layer. That's how we learn.",
+            "A little more honey never hurt anybody.",
+            "You're doing wonderfully!",
+            "Trust your taste buds, dear. They know best.",
+            "I made my first parfait wrong too. Try again!",
+            "Such a clever cook you are!"
+        ];
+        const GRANDMA_TASTING = [
+            "Green means keep it, dear. Red means swap it!",
+            "Ooh, you're getting warmer!",
+            "Not quite yet, but you're so close!",
+            "Tap a red layer to swap it out. You've got this!"
+        ];
+        let lastSay = -1, sayTimer = null;
+        function grandmaSpeak() {
+            const pool = tries > 0 ? GRANDMA_TASTING.concat(GRANDMA_SAYS) : GRANDMA_SAYS;
+            let i;
+            do { i = Math.floor(Math.random() * pool.length); } while (pool.length > 1 && pool[i] === lastSay);
+            lastSay = pool[i];
+            $('gsay').textContent = pool[i];
+            $('brand').classList.add('talk');
+        }
+        function grandmaHush() { clearTimeout(sayTimer); $('brand').classList.remove('talk'); }
+        $('brand').addEventListener('mouseenter', grandmaSpeak);
+        $('brand').addEventListener('mouseleave', grandmaHush);
+        $('brand').addEventListener('focus', grandmaSpeak);
+        $('brand').addEventListener('blur', grandmaHush);
+        $('brand').addEventListener('click', () => {   // tap on touch screens
+            grandmaSpeak();
+            clearTimeout(sayTimer);
+            sayTimer = setTimeout(grandmaHush, 4000);
+        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') grandmaHush(); });
+
         // Initial Draw
+        layout();
         draw();
+        renderCard();
+        renderTrophies();
     </script>
 </body>
 </html>
