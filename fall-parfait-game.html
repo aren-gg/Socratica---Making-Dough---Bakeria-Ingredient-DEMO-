@@ -126,6 +126,10 @@
             h1 { padding: 0 76px; font-size: 13px; }
         }
 
+        /* title pops and bobs like Grandma's badge */
+        .pop{display:inline-block;margin-top:4px;text-shadow:2px 2px 0 var(--line),4px 4px 0 var(--line);animation:bob 1.2s steps(2) .6s infinite}
+        .pop:hover{animation-play-state:paused;transform:scale(1.08) rotate(-4deg)}
+
         /* Hero Image & Badge */
         .hero {
             position: relative;
@@ -226,7 +230,6 @@
             justify-content: center;
             gap: 6px;
             border-top: 4px solid var(--line);
-            animation: drop .5s steps(6);
             cursor: pointer;
             position: relative;
             color: #4a2c1a;
@@ -241,6 +244,7 @@
             max-width: 90px;
         }
 
+        .layer.new { animation: drop .5s steps(6); }
         .layer.ok { box-shadow: inset 0 0 0 4px var(--grn); }
         .layer.no { box-shadow: inset 0 0 0 4px var(--red); filter: saturate(.6); }
 
@@ -579,7 +583,7 @@
     </div>
 
     <div class="wrap">
-        <h1>GRANDMA'S<br>FALL PARFAIT</h1>
+        <h1>GRANDMA'S BAKERIA<br><span class="pop">FALL PARFAIT</span></h1>
 
         <div class="card left">
         <!-- Hero Section -->
@@ -918,10 +922,10 @@
         }
 
         /** UI Refresh **/
-        function draw() {
+        function draw(newIndex = -1) {
             const cupEl = $('cup');
             cupEl.innerHTML = cup.map((key, index) =>
-                `<div class="layer ${marks[index] || ''}" data-i="${index}" style="background:${ING[key][1]}">
+                `<div class="layer ${marks[index] || ''}${index === newIndex ? ' new' : ''}" data-i="${index}" style="background:${ING[key][1]}">
                     ${imgTag(key, 3)}<b>${ING[key][0]}</b>
                 </div>`
             ).join('');
@@ -943,7 +947,7 @@
             }
             cup.push(key);
             marks = [];
-            draw();
+            draw(cup.length - 1);
             blip(300 + cup.length * 90);
             msg(ING[key][0] + ' plopped in!');
             if (key === 'cheese') award('cheese');
@@ -1071,7 +1075,7 @@
         /** End Game UI **/
         function showWinnerDialog() {
             const couponCode = 'GOLD-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-            const prizeText = tries <= 2 ? '50% off your parfait!' :
+            const prizeText = tries <= 2 ? 'FREE Fall Parfait!' :
                               tries <= 4 ? 'FREE coffee with any parfait' : '15% off your parfait';
 
             $('win').innerHTML = `
