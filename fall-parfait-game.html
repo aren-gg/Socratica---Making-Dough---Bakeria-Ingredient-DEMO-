@@ -1075,7 +1075,7 @@
         /** End Game UI **/
         function showWinnerDialog() {
             const couponCode = 'GOLD-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-            const prizeText = tries <= 2 ? 'FREE Fall Parfait!' :
+            const prizeText = tries <= 2 ? '50% off your parfait!' :
                               tries <= 4 ? 'FREE coffee with any parfait' : '15% off your parfait';
 
             $('win').innerHTML = `
